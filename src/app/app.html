@@ -1,19 +1,15 @@
 <header class="header">
   <div class="header-right">
-    <!-- כפתור אזור אישי -->
     <button class="auth-btn" (click)="openUserArea()">
-      {{ isLoggedIn() ? "שלום, משתמש" : "אזור אישי" }}
+      {{ isLoggedIn() ? "שלום, " + (currentUser()?.customerName || "משתמש") : "אזור אישי" }}
     </button>
 
-    <!-- תפריט משתמש קטן -->
     <div class="user-menu" *ngIf="showUserMenu()">
-      <!-- אם משתמש מחובר -->
       <ng-container *ngIf="isLoggedIn(); else notLogged">
         <a (click)="router.navigate(['/orders']); showUserMenu.set(false)">הזמנות שלי</a>
         <a (click)="logoutUser()">התנתקות</a>
       </ng-container>
 
-      <!-- אם לא מחובר -->
       <ng-template #notLogged>
         <a (click)="openAuthForm('login')">התחברות</a>
         <a (click)="openAuthForm('signup')">הרשמה</a>
@@ -43,28 +39,72 @@
 
   <img src="assets/logo.png" class="logo" />
 </header>
+
 <!-- מודאל מרכזי -->
 <div class="modal-backdrop" *ngIf="showAuthModal()" (click)="closeAuthModal()"></div>
 
 <div class="auth-modal" *ngIf="showAuthModal()">
   <h2>{{ loginOrSignup() === 'login' ? 'התחברות' : 'הרשמה' }}</h2>
 
+  <!-- הודעת שגיאה -->
+  <div class="error-message" *ngIf="showError()">
+    <i class='bx bx-error-circle'></i>
+    <span>{{ errorMessage() }}</span>
+  </div>
+
   <form>
-    <input type="text" placeholder="שם משתמש" />
-    <input type="password" placeholder="סיסמה" />
-    <button type="button" (click)="loginUser()">
+    <input 
+      type="email" 
+      placeholder="אימייל" 
+      [(ngModel)]="email" 
+      name="email" 
+      required
+      [class.error-input]="showError() && !email"
+    />
+    
+    <input 
+      *ngIf="loginOrSignup() === 'signup'" 
+      type="text" 
+      placeholder="שם מלא" 
+      [(ngModel)]="name" 
+      name="name" 
+      required
+      [class.error-input]="showError() && !name"
+    />
+    
+    <input 
+      type="tel" 
+      placeholder="טלפון" 
+      [(ngModel)]="phone" 
+      name="phone" 
+      required
+      [class.error-input]="showError() && !phone"
+    />
+    
+    <input 
+      *ngIf="loginOrSignup() === 'signup'" 
+      type="date" 
+      placeholder="תאריך לידה (אופציונלי)" 
+      [(ngModel)]="birthDate" 
+      name="birthDate" 
+    />
+    
+    <button 
+      type="button" 
+      (click)="loginOrSignup() === 'login' ? loginUser() : registerUser()"
+    >
       {{ loginOrSignup() === 'login' ? 'התחבר' : 'הרשם' }}
     </button>
   </form>
-  <!-- קישור להחלפה בין הרשמה להתחברות -->
+
   <p class="switch-auth">
     {{ loginOrSignup() === 'login' ? 'עוד לא רשום?' : 'כבר רשום?' }}
     <a href="#" (click)="switchAuthForm($event)">
       {{ loginOrSignup() === 'login' ? 'הרשמה' : 'התחברות' }}
     </a>
   </p>
-  
 </div>
+
 <main class="main-content">
   <router-outlet></router-outlet>
 </main>

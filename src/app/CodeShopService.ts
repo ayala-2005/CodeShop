@@ -2,17 +2,31 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from './models/product';
+import { Customer } from './models/customer';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CodeShopService {
-  constructor(private http:HttpClient)
-  {
-    
+  constructor(private http: HttpClient) {}
+
+  getAllProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>("https://localhost:7272/api/Product");
   }
-  getAllProducts():Observable<Product[]>
-  {
-    return this.http.get<Product[]>("https://localhost:7272/api/Product")
+
+  login(email: string, phone: string): Observable<Customer> {
+    const body = { email, phone };
+    return this.http.post<Customer>(
+      "https://localhost:7272/api/Customer/login",
+      body
+    );
+  }
+
+  register(email: string, name: string, phone: string, birthDate?: string): Observable<Customer> {
+    const body = { email, customerName: name, phone, birthDate };
+    return this.http.post<Customer>(
+      "https://localhost:7272/api/Customer/register",
+      body
+    );
   }
 }
