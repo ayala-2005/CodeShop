@@ -86,7 +86,6 @@ export class App implements OnInit {
 closeAuthModal() {
   this.showAuthModal.set(false);
 }
-
 /** החלפת טופס בין התחברות להרשמה */
 switchAuthForm(event: MouseEvent) {
   event.preventDefault();

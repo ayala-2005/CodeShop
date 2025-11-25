@@ -473,7 +473,6 @@ body {
   font-size: 0.9rem;
   color: rgba(255,255,255,0.8);
 }
-
 .auth-modal .switch-auth a {
   color: var(--home-color);
   cursor: pointer;
