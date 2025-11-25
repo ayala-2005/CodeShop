@@ -91,5 +91,4 @@ switchAuthForm(event: MouseEvent) {
   event.preventDefault();
   this.loginOrSignup.update(v => v === 'login' ? 'signup' : 'login');
 }
-
 }
