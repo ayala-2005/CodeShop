@@ -1,12 +1,31 @@
 <header class="header">
   <div class="header-right">
-    <button class="auth-btn">אזור אישי</button>
+    <!-- כפתור אזור אישי -->
+    <button class="auth-btn" (click)="openUserArea()">
+      {{ isLoggedIn() ? "שלום, משתמש" : "אזור אישי" }}
+    </button>
+
+    <!-- תפריט משתמש קטן -->
+    <div class="user-menu" *ngIf="showUserMenu()">
+      <!-- אם משתמש מחובר -->
+      <ng-container *ngIf="isLoggedIn(); else notLogged">
+        <a (click)="router.navigate(['/orders']); showUserMenu.set(false)">הזמנות שלי</a>
+        <a (click)="logoutUser()">התנתקות</a>
+      </ng-container>
+
+      <!-- אם לא מחובר -->
+      <ng-template #notLogged>
+        <a (click)="openAuthForm('login')">התחברות</a>
+        <a (click)="openAuthForm('signup')">הרשמה</a>
+      </ng-template>
+    </div>
+
     <a routerLink="/cart" class="cart-icon">
       <i class='bx bx-cart'></i>
       <span class="cart-badge">0</span>
     </a>
   </div>
-  
+
   <nav class="nav">
     <ul class="nav__links">
       <li class="nav__link" [class.active]="activeLink() === 'home'" (click)="setActive('home', $event)">
@@ -21,39 +40,32 @@
       <div class="nav__light"></div>
     </ul>
   </nav>
-  
-  <img src="assets/logo.png" alt="לוגו" class="logo">
+
+  <img src="assets/logo.png" class="logo" />
 </header>
+<!-- מודאל מרכזי -->
+<div class="modal-backdrop" *ngIf="showAuthModal()" (click)="closeAuthModal()"></div>
+
+<div class="auth-modal" *ngIf="showAuthModal()">
+  <h2>{{ loginOrSignup() === 'login' ? 'התחברות' : 'הרשמה' }}</h2>
+
+  <form>
+    <input type="text" placeholder="שם משתמש" />
+    <input type="password" placeholder="סיסמה" />
+    <button type="button" (click)="loginUser()">
+      {{ loginOrSignup() === 'login' ? 'התחבר' : 'הרשם' }}
+    </button>
+  </form>
+
+  <!-- קישור להחלפה בין הרשמה להתחברות -->
+  <p class="switch-auth">
+    {{ loginOrSignup() === 'login' ? 'עוד לא רשום?' : 'כבר רשום?' }}
+    <a href="#" (click)="switchAuthForm($event)">
+      {{ loginOrSignup() === 'login' ? 'הרשמה' : 'התחברות' }}
+    </a>
+  </p>
+</div>
 
 <main class="main-content">
   <router-outlet></router-outlet>
 </main>
-
-<footer class="footer">
-  <div class="footer-content">
-    <div class="footer-section">
-      <h3>CodeShop</h3>
-      <p>החנות המובילה לקודים באלגוריתמים ותכנות מחשבים</p>
-      <p>פתרונות מקצועיים לכל מתכנת</p>
-    </div>
-    
-    <div class="footer-section">
-      <h4>קישורים מהירים</h4>
-      <ul class="footer-links">
-        <li><a routerLink="/home-page">דף הבית</a></li>
-        <li><a routerLink="/menu">מוצרים</a></li>
-        <li><a routerLink="/about">אודות</a></li>
-      </ul>
-    </div>
-    
-    <div class="footer-section">
-      <h4>יצירת קשר</h4>
-      <p>📧 info@codeshop.com</p>
-      <p>📱 050-1234567</p>
-    </div>
-  </div>
-  
-  <div class="footer-bottom">
-    <p>&copy; 2025 CodeShop. כל הזכויות שמורות.</p>
-  </div>
-</footer>

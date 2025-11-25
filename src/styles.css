@@ -334,3 +334,153 @@ body {
     margin-top: 200px;
   }
 }
+/* ---------- MODAL ---------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 2000;
+  animation: fadeIn .3s;
+}
+
+.auth-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1a2332;
+  padding: 2.5rem;
+  border-radius: 15px;
+  z-index: 2001;
+  width: 350px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.4);
+  text-align: center;
+  color: white;
+  animation: popIn .3s ease;
+}
+
+.auth-option {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 10px;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.auth-option.login {
+  background: var(--home-color);
+}
+.auth-option.signup {
+  background: var(--menu-color);
+  color: white;
+}
+
+.auth-option:hover {
+  opacity: 0.8;
+}
+
+@keyframes popIn {
+  0% { transform: translate(-50%, -40%) scale(0.8); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* USER MENU (dropdown) */
+.user-menu {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  background: #1a2332;
+  border-radius: 12px;
+  padding: 1rem;
+  z-index: 2005;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  width: 160px;
+  animation: fadeIn .2s;
+}
+
+.user-menu a {
+  display: block;
+  padding: 0.6rem;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  transition: .3s;
+}
+
+.user-menu a:last-child {
+  border-bottom: none;
+}
+
+.user-menu a:hover {
+  color: var(--home-color);
+}
+/* User menu קטן */
+.user-menu {
+  position: absolute;
+  bottom: 70px; /* מלמטה */
+  right: 0;
+  background: #1a2332;
+  border-radius: 12px;
+  padding: 0.8rem;
+  z-index: 2000;
+  width: 160px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+.user-menu a {
+  display: block;
+  padding: 0.6rem;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.user-menu a:last-child { border-bottom: none; }
+.user-menu a:hover { color: var(--home-color); }
+
+/* Modal במרכז המסך */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 2000;
+}
+.auth-modal {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1a2332;
+  padding: 2.5rem;
+  border-radius: 15px;
+  z-index: 2001;
+  width: 350px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0,0,0,0.4);
+}
+.auth-modal form { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+.auth-modal input { padding: 0.6rem; border-radius: 8px; border: none; }
+.auth-modal button { padding: 0.8rem; border-radius: 8px; border: none; background: var(--home-color); color: #fff; cursor: pointer; }
+.auth-modal button:hover { opacity: 0.9; }
+.auth-modal .switch-auth {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.auth-modal .switch-auth a {
+  color: var(--home-color);
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 0.3rem;
+}
+
+.auth-modal .switch-auth a:hover {
+  opacity: 0.8;
+}
