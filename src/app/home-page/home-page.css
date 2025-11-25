@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.page-bg {
+  margin-top: 90px;                 /* גובה ה־header */
+  min-height: calc(100vh - 90px);   /* שיתפרס עד סוף המסך */
+  
+  background-image: url('/assets/home.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

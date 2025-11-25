@@ -1,0 +1,27 @@
+<div class="products-container">
+  <h2 class="page-title">המוצרים שלנו</h2>
+
+  <div *ngIf="loading()" class="loading-state">
+    <div class="spinner"></div>
+    <p>טוען מוצרים...</p>
+  </div>
+
+  <div *ngIf="!loading() && list().length === 0" class="empty-state">
+    <p>אין מוצרים להצגה</p>
+  </div>
+
+  <div *ngIf="!loading() && list().length > 0" class="products-grid">
+    <div *ngFor="let product of list()" class="product-card">
+      <div class="product-content">
+        <div class="product-icon">
+          <span class="code-symbol">&lt;/&gt;</span>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{ product.productName }}</h3>
+          <p class="product-price">₪{{ product.price }}</p>
+          <button class="buy-button">הוסף לעגלה</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
