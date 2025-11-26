@@ -1,35 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-// import { CodeShopService } from '../CodeShopService';
-// import { Product } from '../models/product';
-// import { CommonModule } from '@angular/common';
-
-// @Component({
-//   selector: 'app-menu',
-//   standalone: true,
-//   templateUrl: './menu.html',
-//   styleUrls: ['./menu.css'],
-//   imports: [CommonModule]
-// })
-// export class Menu implements OnInit {
-
-//   list: Product[] = [];
-//   loading: boolean = true;
-
-//   constructor(private service: CodeShopService) {}
-
-//   ngOnInit(): void {
-//     this.service.getAllProducts().subscribe({
-//       next: (data: Product[]) => {
-//         this.list = data;
-//         this.loading = false;
-//       },
-//       error: (err) => {
-//         console.error(err);
-//         this.loading = false;
-//       }
-//     });
-//   }
-// }
 import { Component, OnInit, ChangeDetectorRef, signal } from '@angular/core';
 import { CodeShopService } from '../CodeShopService';
 import { Product } from '../models/product';

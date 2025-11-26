@@ -1,26 +1,22 @@
 <header class="header">
   <div class="header-right">
-    <!-- כפתור אזור אישי -->
     <button class="auth-btn" (click)="openUserArea()">
-      {{ isLoggedIn() ? "שלום, משתמש" : "אזור אישי" }}
+      {{ isLoggedIn() ? "שלום, " + (currentUser()?.customerName || "משתמש") : "אזור אישי" }}
     </button>
 
-    <!-- תפריט משתמש קטן -->
     <div class="user-menu" *ngIf="showUserMenu()">
-      <!-- אם משתמש מחובר -->
       <ng-container *ngIf="isLoggedIn(); else notLogged">
         <a (click)="router.navigate(['/orders']); showUserMenu.set(false)">הזמנות שלי</a>
         <a (click)="logoutUser()">התנתקות</a>
       </ng-container>
 
-      <!-- אם לא מחובר -->
       <ng-template #notLogged>
         <a (click)="openAuthForm('login')">התחברות</a>
         <a (click)="openAuthForm('signup')">הרשמה</a>
       </ng-template>
     </div>
 
-    <a routerLink="/cart" class="cart-icon">
+    <a routerLink="/shopping-cart" class="cart-icon">
       <i class='bx bx-cart'></i>
       <span class="cart-badge">0</span>
     </a>
@@ -37,34 +33,127 @@
       <li class="nav__link" [class.active]="activeLink() === 'about'" (click)="setActive('about', $event)">
         <a routerLink="/about">אודות</a>
       </li>
+      <li class="nav__link" [class.active]="activeLink() === 'kesher'" (click)="setActive('kesher', $event); scrollToFooter()">
+        <a style="cursor: pointer;">צור קשר </a>
+      </li>
       <div class="nav__light"></div>
     </ul>
   </nav>
 
   <img src="assets/logo.png" class="logo" />
 </header>
+
 <!-- מודאל מרכזי -->
 <div class="modal-backdrop" *ngIf="showAuthModal()" (click)="closeAuthModal()"></div>
 
 <div class="auth-modal" *ngIf="showAuthModal()">
   <h2>{{ loginOrSignup() === 'login' ? 'התחברות' : 'הרשמה' }}</h2>
 
+  <!-- הודעת שגיאה -->
+  <div class="error-message" *ngIf="showError()">
+    <i class='bx bx-error-circle'></i>
+    <span>{{ errorMessage() }}</span>
+  </div>
+
   <form>
-    <input type="text" placeholder="שם משתמש" />
-    <input type="password" placeholder="סיסמה" />
-    <button type="button" (click)="loginUser()">
+    <input 
+      type="email" 
+      placeholder="אימייל" 
+      [(ngModel)]="email" 
+      name="email" 
+      required
+      [class.error-input]="showError() && !email"
+    />
+    
+    <input 
+      *ngIf="loginOrSignup() === 'signup'" 
+      type="text" 
+      placeholder="שם מלא" 
+      [(ngModel)]="name" 
+      name="name" 
+      required
+      [class.error-input]="showError() && !name"
+    />
+    
+    <input 
+      type="tel" 
+      placeholder="טלפון" 
+      [(ngModel)]="phone" 
+      name="phone" 
+      required
+      [class.error-input]="showError() && !phone"
+    />
+    
+    <input 
+      *ngIf="loginOrSignup() === 'signup'" 
+      type="date" 
+      placeholder="תאריך לידה (אופציונלי)" 
+      [(ngModel)]="birthDate" 
+      name="birthDate" 
+    />
+    
+    <button 
+      type="button" 
+      (click)="loginOrSignup() === 'login' ? loginUser() : registerUser()"
+    >
       {{ loginOrSignup() === 'login' ? 'התחבר' : 'הרשם' }}
     </button>
   </form>
-  <!-- קישור להחלפה בין הרשמה להתחברות -->
+
   <p class="switch-auth">
     {{ loginOrSignup() === 'login' ? 'עוד לא רשום?' : 'כבר רשום?' }}
     <a href="#" (click)="switchAuthForm($event)">
       {{ loginOrSignup() === 'login' ? 'הרשמה' : 'התחברות' }}
     </a>
   </p>
-  
 </div>
+
 <main class="main-content">
   <router-outlet></router-outlet>
 </main>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>CodeShop</h3>
+        <p>המקום שלך לקניית קודים מקצועיים</p>
+        <p>קודי תכנות באיכות גבוהה בשפות שונות</p>
+        <p>תמיכה טכנית מלאה לכל רכישה</p>
+        <p>עדכונים שוטפים וגרסאות חדשות</p>
+      </div>
+  
+      <div class="footer-section">
+        <h4>שפות תכנות פופולריות</h4>
+        <ul class="footer-links">
+          <li><a routerLink="/menu">JavaScript / TypeScript</a></li>
+          <li><a routerLink="/menu">Python</a></li>
+          <li><a routerLink="/menu">Java / C#</a></li>
+          <li><a routerLink="/menu">React / Angular</a></li>
+          <li><a routerLink="/menu">PHP / Node.js</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-section">
+        <h4>קטגוריות קוד</h4>
+        <ul class="footer-links">
+          <li><a routerLink="/menu">אלגוריתמים ומבני נתונים</a></li>
+          <li><a routerLink="/menu">ממשקי משתמש (UI/UX)</a></li>
+          <li><a routerLink="/menu">Backend & APIs</a></li>
+          <li><a routerLink="/menu">בסיסי נתונים</a></li>
+          <li><a routerLink="/menu">אבטחת מידע</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-section">
+        <h4>צור קשר</h4>
+        <p>💻 תמיכה טכנית: 24/7</p>
+        <p>📧 אימייל: support@codeshop.co.il</p>
+        <p>💬 צ'אט חי: זמין בכל עת</p>
+        <p>📱 WhatsApp: 054-CODE-123</p>
+        <p>🔗 GitHub: @CodeShopOfficial</p>
+      </div>
+    </div>
+  
+    <div class="footer-bottom">
+      <p>&copy; 2025 CodeShop. כל הקודים והזכויות שמורים | נבנה עם ❤️ על ידי מפתחים למפתחים</p>
+    </div>
+  </footer>
