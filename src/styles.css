@@ -4,13 +4,11 @@
   --tab-color: #191919;
   --white-color: #fff;
   --home-color: #00f7ff;
-  --menu-color: #ff0000;
-  --contact-color: #adff2f;
+  --menu-color: #dd6868;
+  --contact-color: #e8f573;
   --kesher-color:#c218a0;
 }
-html {
-  height: 100%;
-}
+
 /* הודעת שגיאה */
 .error-message {
   background: rgba(255, 82, 82, 0.15);
