@@ -11,13 +11,13 @@ export class CodeShopService {
   constructor(private http: HttpClient) {}
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>("https://localhost:7013/api/Product");
+    return this.http.get<Product[]>("https://localhost:7272/api/Product");
   }
 
   login(email: string, phone: string): Observable<Customer> {
     const body = { email, phone };
     return this.http.post<Customer>(
-      "https://localhost:7013/api/Customer/login",
+      "https://localhost:7272/api/Customer/login",
       body
     );
   }
@@ -25,7 +25,7 @@ export class CodeShopService {
   register(email: string, name: string, phone: string, birthDate?: string): Observable<Customer> {
     const body = { email, customerName: name, phone, birthDate };
     return this.http.post<Customer>(
-      "https://localhost:7013/api/Customer/register",
+      "https://localhost:7272/api/Customer/register",
       body
     );
   }
