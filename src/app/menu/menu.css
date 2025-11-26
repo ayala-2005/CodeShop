@@ -1,5 +1,5 @@
 .products-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -10,6 +10,91 @@
   color: #333;
   margin-bottom: 30px;
   font-size: 2rem;
+}
+
+/* Main Layout with Sidebar */
+.main-content {
+  display: flex;
+  gap: 30px;
+  direction: rtl;
+}
+
+/* Filter Panel Styling */
+.filter-panel {
+  width: 280px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 25px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+  flex-shrink: 0;
+}
+
+.filter-panel h2 {
+  margin: 0 0 20px 0;
+  font-size: 1.5rem;
+  color: #333;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 10px;
+}
+
+.filter-section {
+  margin-bottom: 25px;
+}
+
+.filter-section:last-child {
+  margin-bottom: 0;
+}
+
+.filter-section h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+  color: #555;
+  font-weight: 600;
+}
+
+.filter-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filter-section li {
+  margin-bottom: 10px;
+}
+
+.filter-section li:last-child {
+  margin-bottom: 0;
+}
+
+.filter-section label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  font-size: 0.95rem;
+}
+
+.filter-section label:hover {
+  background-color: #f5f5f5;
+}
+
+.filter-section input[type="radio"] {
+  margin-left: 10px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  accent-color: #667eea;
+}
+
+/* Products Section */
+.products-section {
+  flex: 1;
+  min-width: 0;
 }
 
 /* Loading State */
@@ -46,7 +131,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
-  direction: rtl;
 }
 
 /* Product Card */
@@ -123,7 +207,33 @@
   background-color: #45a049;
 }
 
+.reset-btn {
+background: #e0e0e0;
+border: none;
+padding: 4px 10px;
+border-radius: 6px;
+font-size: 12px;
+cursor: pointer;
+margin-right: 8px;
+}
+
+
+.reset-btn:hover {
+background: #d5d5d5;
+}
+
 /* Responsive Design */
+@media (max-width: 968px) {
+  .main-content {
+    flex-direction: column;
+  }
+  
+  .filter-panel {
+    width: 100%;
+    position: static;
+  }
+}
+
 @media (max-width: 768px) {
   .products-grid {
     grid-template-columns: 1fr;
