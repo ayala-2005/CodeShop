@@ -8,9 +8,7 @@
   --contact-color: #e8f573;
   --kesher-color:#73a1e5;
 }
-html {
-  height: 100%;
-}
+
 /* הודעת שגיאה */
 .error-message {
   background: rgba(255, 82, 82, 0.15);
