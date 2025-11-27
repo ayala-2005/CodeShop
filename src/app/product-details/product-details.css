@@ -1,55 +1,106 @@
-/* עיצוב כללי */
 :host {
     display: flex;
     justify-content: center;
-    padding: 30px;
-    font-family: Arial, sans-serif;
+    padding: 40px;
     direction: rtl;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
   }
   
+  /* מעטפת כללית */
   .product-card {
-    background: #ffffff;
-    padding: 25px;
-    width: 420px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    background: #fff;
+    padding: 30px;
     border-radius: 14px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e5e5;
-    animation: fadeIn 0.4s ease;
+    width: 85%;
+    max-width: 1100px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.4s ease-in-out;
   }
   
-  /* כותרת המוצר */
-  .product-card h2 {
+  /* הצגת תמונה צד ימין */
+  .product-image {
+    width: 420px;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+  }
+  
+  /* תוכן טקסטואלי בצד שמאל */
+  .product-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* כותרת */
+  .product-info h2 {
+    font-size: 32px;
     margin-top: 0;
     color: #2c3e50;
-    font-size: 26px;
-    border-bottom: 2px solid #3498db;
+    border-bottom: 3px solid #3498db;
+    display: inline-block;
     padding-bottom: 8px;
   }
   
-  /* תיאור המוצר */
-  .product-card p {
+  /* תיאור */
+  .description {
+    margin: 20px 0;
+    line-height: 1.6;
     font-size: 18px;
     color: #555;
-    line-height: 1.5;
   }
   
   /* מחיר */
-  .product-card .price {
-    font-size: 22px;
-    color: #27ae60;
-    margin-top: 15px;
+  .price {
+    font-size: 26px;
+    color: #2ecc71;
+    margin: 15px 0;
     font-weight: bold;
   }
-  .product-image {
-    width: 100%;
-    max-height: 280px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  
+  /* פרטים נוספים */
+  .details {
+    margin-top: 20px;
   }
+  
+  .details p {
+    font-size: 17px;
+    color: #444;
+    margin: 6px 0;
+  }
+  
+  .details strong {
+    color: #2c3e50;
+  }
+  
   /* אנימציה */
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  
+  /* רספונסיביות לנייד */
+  @media (max-width: 800px) {
+    .product-card {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .product-image {
+      width: 100%;
+      height: auto;
+      max-width: 400px;
+    }
+  
+    .product-info h2 {
+      text-align: center;
+    }
+  }
+  

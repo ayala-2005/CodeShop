@@ -1,9 +1,24 @@
 <div class="product-card" *ngIf="product">
-  
+
   <img class="product-image" [src]="product.image" alt="תמונה של {{ product.productName }}" />
 
-  <h2>{{ product.productName }}</h2>
-  <p>{{ product.description }}</p>
-  <p class="price">מחיר: ₪{{ product.price }}</p>
+  <div class="product-info">
+    <h2>{{ product.productName }}</h2>
+
+    <p class="description">{{ product.description }}</p>
+
+    <p class="price">מחיר: ₪{{ product.price }}</p>
+
+    <div class="details">
+      <p><strong>מקט מוצר:</strong> {{ product.productId }}</p>
+      <p><strong>קטגוריה:</strong> {{ product.categoryName || 'לא מוגדר' }}</p>
+      <p><strong>חברה:</strong> {{ product.companyName || 'לא מוגדר' }}</p>
+
+      <p>
+        <strong>עודכן לאחרונה:</strong>
+        {{ product.lastUpdateDate ? (product.lastUpdateDate | date: 'dd/MM/yyyy - HH:mm') : '—' }}
+      </p>
+    </div>
+  </div>
 
 </div>
