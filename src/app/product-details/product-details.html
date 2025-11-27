@@ -13,7 +13,6 @@
       <p><strong>מקט מוצר:</strong> {{ product.productId }}</p>
       <p><strong>קטגוריה:</strong> {{ product.categoryName || 'לא מוגדר' }}</p>
       <p><strong>חברה:</strong> {{ product.companyName || 'לא מוגדר' }}</p>
-
       <p>
         <strong>עודכן לאחרונה:</strong>
         {{ product.lastUpdateDate ? (product.lastUpdateDate | date: 'dd/MM/yyyy - HH:mm') : '—' }}
