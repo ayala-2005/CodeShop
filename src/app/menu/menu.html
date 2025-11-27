@@ -44,8 +44,8 @@
         <p>אין מוצרים להצגה</p>
       </div>
 
-      <div *ngIf="!loading() && list().length > 0" class="products-grid">
-        <div *ngFor="let product of list()" class="product-card">
+      <div  *ngIf="!loading() && list().length > 0" class="products-grid">
+        <div *ngFor="let product of list()" class="product-card" (click)="details(product)">
           <div class="product-content">
             <div class="product-icon">
               <span class="code-symbol">&lt;/&gt;</span>

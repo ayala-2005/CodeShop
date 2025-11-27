@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, signal } from '@angular/core';
 import { CodeShopService } from '../CodeShopService';
 import { Product } from '../models/product';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -17,7 +18,7 @@ export class Menu implements OnInit {
   list = signal<Product[]>([]);
   loading = signal<boolean>(true);
 
-  constructor(private service: CodeShopService, private cdr: ChangeDetectorRef) {
+  constructor(private service: CodeShopService, private cdr: ChangeDetectorRef,private router: Router) {
 
   }
 
@@ -106,4 +107,7 @@ export class Menu implements OnInit {
     // טעינת כל המוצרים
     this.loadProducts();
   }
+details(product: any) {
+  this.router.navigate(['/product-details'], { state: { product } });
+}
 }
