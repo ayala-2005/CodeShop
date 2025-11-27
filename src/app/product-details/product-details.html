@@ -1,6 +1,9 @@
-<p>product-details works!</p>
-<div *ngIf="product">
-  <h2>{{ product.name }}</h2>
+<div class="product-card" *ngIf="product">
+  
+  <img class="product-image" [src]="product.image" alt="תמונה של {{ product.productName }}" />
+
+  <h2>{{ product.productName }}</h2>
   <p>{{ product.description }}</p>
-  <p>מחיר: {{ product.price }}</p>
+  <p class="price">מחיר: ₪{{ product.price }}</p>
+
 </div>
