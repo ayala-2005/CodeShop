@@ -2,8 +2,8 @@ export class Product {
     productId: number;
     productName: string;
 
-    categoryId: number | null;
-    companyId: number | null;
+    categoryName: string | null;
+    companyName: string | null;
 
     description: string | null;
     price: number;
@@ -15,8 +15,8 @@ export class Product {
     constructor(
         productId: number,
         productName: string,
-        categoryId: number | null,
-        companyId: number | null,
+        categoryName: string | null,
+        companyName: string | null,
         description: string | null,
         price: number,
         image: string | null,
@@ -24,8 +24,8 @@ export class Product {
     ) {
         this.productId = productId;
         this.productName = productName;
-        this.categoryId = categoryId;
-        this.companyId = companyId;
+        this.categoryName = categoryName;
+        this.companyName = companyName;
         this.description = description;
         this.price = price;
         this.image = image;
