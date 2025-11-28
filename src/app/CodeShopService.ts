@@ -9,15 +9,15 @@ import { Customer } from './models/customer';
 })
 export class CodeShopService {
   constructor(private http: HttpClient) {}
-ApiUrl="https://localhost:7013/api"
+ApiUrl="https://localhost:7272/api"
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.ApiUrl+"/Product");
+    return this.http.get<Product[]>(this.ApiUrl+"/api/Product");
   }
 
   login(email: string, phone: string): Observable<Customer> {
     const body = { email, phone };
     return this.http.post<Customer>(
-      this.ApiUrl+"/Customer/login",
+      this.ApiUrl + "/Customer/login",
       body
     );
   }
@@ -25,17 +25,17 @@ ApiUrl="https://localhost:7013/api"
   register(email: string, name: string, phone: string, birthDate?: string): Observable<Customer> {
     const body = { email, customerName: name, phone, birthDate };
     return this.http.post<Customer>(
-      this.ApiUrl+"/Customer/register",
+      this.ApiUrl + "/Customer/register",
       body
     );
   }
-  SelectByCategory(category:string): Observable<Product[]> {
-    return this.http.get<Product[]>(this.ApiUrl+"/Product/by-category?category=" + category);
+  SelectByCategory(category: string): Observable<Product[]> {
+    return this.http.get<Product[]>(this.ApiUrl + "/Product/by-category?category=" + category);
   }
-  SelectByCompany(company:string): Observable<Product[]> {
-    return this.http.get<Product[]>(this.ApiUrl+"/Product/by-company?company=" + company);
+  SelectByCompany(company: string): Observable<Product[]> {
+    return this.http.get<Product[]>(this.ApiUrl + "/Product/by-company?company=" + company);
   }
-  SelectByCompanyAndCategory(company:string, category:string): Observable<Product[]> {
-    return this.http.get<Product[]>(this.ApiUrl+"/Product/filter?company=" + company + "&category=" + category);
+  SelectByCompanyAndCategory(company: string, category: string): Observable<Product[]> {
+    return this.http.get<Product[]>(this.ApiUrl + "/Product/filter?company=" + company + "&category=" + category);
   }
 }
