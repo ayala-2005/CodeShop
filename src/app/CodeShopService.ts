@@ -11,7 +11,7 @@ export class CodeShopService {
   constructor(private http: HttpClient) {}
 ApiUrl="https://localhost:7272/api"
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.ApiUrl+"/api/Product");
+    return this.http.get<Product[]>(this.ApiUrl+"/Product");
   }
 
   login(email: string, phone: string): Observable<Customer> {
