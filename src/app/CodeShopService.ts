@@ -30,12 +30,12 @@ export class CodeShopService {
     );
   }
   SelectByCategory(category:string): Observable<Product[]> {
-    return this.http.get<Product[]>("https://localhost:7272/api/Product/by-category?category=" + category);
+    return this.http.get<Product[]>("https://localhost:7013/api/Product/by-category?category=" + category);
   }
   SelectByCompany(company:string): Observable<Product[]> {
-    return this.http.get<Product[]>("https://localhost:7272/api/Product/by-company?company=" + company);
+    return this.http.get<Product[]>("https://localhost:7013/api/Product/by-company?company=" + company);
   }
   SelectByCompanyAndCategory(company:string, category:string): Observable<Product[]> {
-    return this.http.get<Product[]>("https://localhost:7272/api/Product/filter?company=" + company + "&category=" + category);
+    return this.http.get<Product[]>("https://localhost:7013/api/Product/filter?company=" + company + "&category=" + category);
   }
 }
