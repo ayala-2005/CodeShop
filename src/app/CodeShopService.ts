@@ -9,9 +9,9 @@ import { Customer } from './models/customer';
 })
 export class CodeShopService {
   constructor(private http: HttpClient) {}
-ApiUrl="https://localhost:7272/api"
+ApiUrl="https://localhost:7013/api"
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.ApiUrl+"/api/Product");
+    return this.http.get<Product[]>(this.ApiUrl+"/Product");
   }
 
   login(email: string, phone: string): Observable<Customer> {
@@ -30,12 +30,12 @@ ApiUrl="https://localhost:7272/api"
     );
   }
   SelectByCategory(category:string): Observable<Product[]> {
-    return this.http.get<Product[]>("https://localhost:7272/api/Product/by-category?category=" + category);
+    return this.http.get<Product[]>(this.ApiUrl+"/Product/by-category?category=" + category);
   }
   SelectByCompany(company:string): Observable<Product[]> {
-    return this.http.get<Product[]>("https://localhost:7272/api/Product/by-company?company=" + company);
+    return this.http.get<Product[]>(this.ApiUrl+"/Product/by-company?company=" + company);
   }
   SelectByCompanyAndCategory(company:string, category:string): Observable<Product[]> {
-    return this.http.get<Product[]>("https://localhost:7272/api/Product/filter?company=" + company + "&category=" + category);
+    return this.http.get<Product[]>(this.ApiUrl+"/Product/filter?company=" + company + "&category=" + category);
   }
 }
