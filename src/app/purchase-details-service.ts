@@ -24,5 +24,9 @@ RemoveProduct(purchaseId: number, productId: number): Observable<PurchaseDetail>
     this.ApiUrl + "/PurchaseDetails/remove/purchase/" + purchaseId + "/product/" + productId
   );
 }
+
+AddListToCart(customerId: number, productIds: number[]) {
+  return this.http.post(this.ApiUrl + "/PurchaseDetails/add-list/" + customerId, productIds);
+}
 }
 

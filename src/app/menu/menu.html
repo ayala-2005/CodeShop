@@ -53,7 +53,7 @@
             <div class="product-info">
               <h3 class="product-name">{{ product.productName }}</h3>
               <p class="product-price">₪{{ product.price }}</p>
-              <button class="buy-button" (click)="addProduct(customerId,product.productId);$event.stopPropagation()">הוסף לעגלה</button>
+              <button class="buy-button" (click)="addProduct(product);$event.stopPropagation()">הוסף לעגלה</button>
             </div>
           </div>
         </div>

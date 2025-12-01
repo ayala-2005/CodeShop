@@ -4,7 +4,9 @@ import { CommonModule, NgIf, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { filter } from 'rxjs/operators';
 import { CustomerService } from './customer-service';
+import { PurchaseDetailsService } from './purchase-details-service';
 import { Customer } from './models/customer';
+
 
 
 @Component({
@@ -19,7 +21,7 @@ export class App implements OnInit {
 
   /** האם המשתמש מחובר */
   protected isLoggedIn = signal<boolean>(false);
-  
+
   /** פרטי המשתמש המחובר */
   protected currentUser = signal<Customer | null>(null);
 
@@ -41,6 +43,7 @@ export class App implements OnInit {
   private elementRef = inject(ElementRef);
   protected router = inject(Router);
   private CustomerService = inject(CustomerService);
+  private PurchaseDetailsService = inject(PurchaseDetailsService)
   private platformId = inject(PLATFORM_ID);
 
   ngOnInit() {
@@ -120,12 +123,13 @@ export class App implements OnInit {
       next: (user: Customer) => {
         this.currentUser.set(user);
         this.isLoggedIn.set(true);
+        this.transferLocalCartToServer(user.customerId);
         this.showAuthModal.set(false);
-        
+
         if (isPlatformBrowser(this.platformId)) {
           localStorage.setItem('currentUser', JSON.stringify(user));
         }
-        
+
         this.clearForm();
         this.clearError();
       },
@@ -176,12 +180,13 @@ export class App implements OnInit {
       next: (user: Customer) => {
         this.currentUser.set(user);
         this.isLoggedIn.set(true);
+        this.transferLocalCartToServer(user.customerId);
         this.showAuthModal.set(false);
-        
+
         if (isPlatformBrowser(this.platformId)) {
           localStorage.setItem('currentUser', JSON.stringify(user));
         }
-        
+
         this.clearForm();
         this.clearError();
       },
@@ -201,7 +206,7 @@ export class App implements OnInit {
     this.currentUser.set(null);
     this.showUserMenu.set(false);
     this.clearForm();
-    
+
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('currentUser');
     }
@@ -238,4 +243,28 @@ export class App implements OnInit {
       footer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
+
+private transferLocalCartToServer(customerId: number) {
+  const localCartRaw = localStorage.getItem('cart');
+  if (!localCartRaw) return;
+
+  const localCart: any[] = JSON.parse(localCartRaw);
+
+  // הפקת רשימת productId
+  const productIds = localCart.map(item => item.productId);
+
+  if (productIds.length === 0) return;
+
+  this.PurchaseDetailsService
+    .AddListToCart(customerId, productIds)
+    .subscribe({
+      next: () => {
+        console.log("כל המוצרים עברו לשרת בהצלחה:", productIds);
+        localStorage.removeItem('cart');
+      },
+      error: (err) => {
+        console.error("שגיאה בהעברת רשימת מוצרים לשרת", err);
+      }
+    });
+}
 }

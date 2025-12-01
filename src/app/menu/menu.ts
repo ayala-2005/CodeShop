@@ -4,6 +4,7 @@ import {PurchaseDetailsService} from '../purchase-details-service'
 import { Product } from '../models/product';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { PurchaseDetail } from '../models/purchase-detail';
 
 @Component({
   selector: 'app-menu',
@@ -112,16 +113,40 @@ export class Menu implements OnInit {
   details(product: any) {
     this.router.navigate(['/product-details'], { state: { product } });
   }
-  addProduct(customerId: number, productId: number) {
-  this.PurchaseDetailsService
-    .AddProductToPurchase(customerId, productId)
-    .subscribe({
-      next: (res) => {
-        console.log("נוסף בהצלחה", res);
-      },
-      error: (err) => {
-        console.error("שגיאה בהוספת מוצר", err);
-      }
-    });
+
+  addProduct(product: Product) {
+  if (this.customerId) {
+    // משתמש מחובר → שלח לשרת
+    this.PurchaseDetailsService
+      .AddProductToPurchase(this.customerId, product.productId)
+      .subscribe({
+        next: (res) => {
+          console.log("נוסף בהצלחה בשרת", res);
+        },
+        error: (err) => {
+          console.error("שגיאה בהוספת מוצר לשרת", err);
+        }
+      });
+  } else {
+    // משתמש לא מחובר → שמירה ב-localStorage
+    const localCartRaw = localStorage.getItem('cart');
+    let localCart: PurchaseDetail[] = localCartRaw ? JSON.parse(localCartRaw) : [];
+
+    // בדיקה אם המוצר כבר קיים
+    const exists = localCart.some(item => item.productId === product.productId);
+    if (!exists) {
+      // הוספת המוצר אם לא קיים
+      localCart.push({
+        purchaseId: 0, // אין purchaseId אמיתי ללא משתמש
+        productId: product.productId,
+        product: product
+      });
+      localStorage.setItem('cart', JSON.stringify(localCart));
+      console.log("המוצר נוסף לסל מקומי", product.productId);
+    } else {
+      console.log("המוצר כבר קיים בעגלה המקומית", product.productId);
+    }
+  }
 }
+
 }
