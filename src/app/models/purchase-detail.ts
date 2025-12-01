@@ -1,14 +1,14 @@
-export class PurchaseDetail {
-    PurchaseDetailId:number
-    PurchaseId:number
-    ProductId:number
-    Quantity:number
+import { Product } from "../models/product";
 
-    constructor(PurchaseDetailId:number,PurchaseId:number,ProductId:number,Quantity:number)
-    {
-        this.PurchaseDetailId=PurchaseDetailId
-        this.PurchaseId=PurchaseId
-        this.ProductId=ProductId
-        this.Quantity=Quantity
-    }
+
+export class PurchaseDetail {
+  purchaseId: number;
+  productId: number;
+  product?: Product; 
+
+  constructor(purchaseId: number, productId: number, product?: Product) {
+    this.purchaseId = purchaseId;
+    this.productId = productId;
+    this.product = product;
+  }
 }

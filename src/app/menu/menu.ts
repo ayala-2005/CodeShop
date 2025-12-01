@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, signal } from '@angular/core';
-import { CodeShopService } from '../CodeShopService';
+import { ProductService } from '../product-Service';
+import {PurchaseDetailsService} from '../purchase-details-service'
 import { Product } from '../models/product';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -14,11 +15,12 @@ import { Router } from '@angular/router';
 export class Menu implements OnInit {
   selectedCompany: string | null = null;
   selectedCategory: string | null = null;
-  
+
   list = signal<Product[]>([]);
   loading = signal<boolean>(true);
+  customerId = JSON.parse(localStorage.getItem('currentUser') || '{}').customerId;
 
-  constructor(private service: CodeShopService, private cdr: ChangeDetectorRef,private router: Router) {
+  constructor(private ProductService: ProductService,private PurchaseDetailsService:PurchaseDetailsService, private cdr: ChangeDetectorRef, private router: Router) {
 
   }
 
@@ -27,7 +29,7 @@ export class Menu implements OnInit {
   }
 
   loadProducts(): void {
-    this.service.getAllProducts().subscribe({
+    this.ProductService.getAllProducts().subscribe({
       next: (data: Product[]) => {
         this.list.set(data);
         this.loading.set(false);
@@ -51,7 +53,7 @@ export class Menu implements OnInit {
 
     if (company && category) {
       // אם יש גם חברה וגם קטגוריה → סינון לפי שניהם
-      this.service.SelectByCompanyAndCategory(company, category).subscribe({
+      this.ProductService.SelectByCompanyAndCategory(company, category).subscribe({
         next: (data: Product[]) => {
           this.list.set(data);
           this.loading.set(false);
@@ -64,7 +66,7 @@ export class Menu implements OnInit {
       });
     } else if (company) {
       // אם רק חברה נבחרה
-      this.service.SelectByCompany(company).subscribe({
+      this.ProductService.SelectByCompany(company).subscribe({
         next: (data: Product[]) => {
           this.list.set(data);
           this.loading.set(false);
@@ -77,7 +79,7 @@ export class Menu implements OnInit {
       });
     } else if (category) {
       // אם רק קטגוריה נבחרה
-      this.service.SelectByCategory(category).subscribe({
+      this.ProductService.SelectByCategory(category).subscribe({
         next: (data: Product[]) => {
           this.list.set(data);
           this.loading.set(false);
@@ -107,7 +109,19 @@ export class Menu implements OnInit {
     // טעינת כל המוצרים
     this.loadProducts();
   }
-details(product: any) {
-  this.router.navigate(['/product-details'], { state: { product } });
+  details(product: any) {
+    this.router.navigate(['/product-details'], { state: { product } });
+  }
+  addProduct(customerId: number, productId: number) {
+  this.PurchaseDetailsService
+    .AddProductToPurchase(customerId, productId)
+    .subscribe({
+      next: (res) => {
+        console.log("נוסף בהצלחה", res);
+      },
+      error: (err) => {
+        console.error("שגיאה בהוספת מוצר", err);
+      }
+    });
 }
 }

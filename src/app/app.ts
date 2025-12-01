@@ -3,7 +3,7 @@ import { RouterOutlet, RouterLink, Router, NavigationEnd } from '@angular/router
 import { CommonModule, NgIf, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { filter } from 'rxjs/operators';
-import { CodeShopService } from './CodeShopService';
+import { CustomerService } from './customer-service';
 import { Customer } from './models/customer';
 
 
@@ -40,7 +40,7 @@ export class App implements OnInit {
 
   private elementRef = inject(ElementRef);
   protected router = inject(Router);
-  private codeShopService = inject(CodeShopService);
+  private CustomerService = inject(CustomerService);
   private platformId = inject(PLATFORM_ID);
 
   ngOnInit() {
@@ -116,7 +116,7 @@ export class App implements OnInit {
       return;
     }
 
-    this.codeShopService.login(this.email, this.phone).subscribe({
+    this.CustomerService.login(this.email, this.phone).subscribe({
       next: (user: Customer) => {
         this.currentUser.set(user);
         this.isLoggedIn.set(true);
@@ -172,7 +172,7 @@ export class App implements OnInit {
       return;
     }
 
-    this.codeShopService.register(this.email, this.name, this.phone, this.birthDate).subscribe({
+    this.CustomerService.register(this.email, this.name, this.phone, this.birthDate).subscribe({
       next: (user: Customer) => {
         this.currentUser.set(user);
         this.isLoggedIn.set(true);
