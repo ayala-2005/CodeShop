@@ -19,9 +19,9 @@ AddProductToPurchase(customerId: number, productId: number): Observable<Purchase
 GetCartProducts(customerId: number): Observable<PurchaseDetail[]> {
   return this.http.get<PurchaseDetail[]>(this.ApiUrl + "/PurchaseDetails/GetCartProducts?customerId=" + customerId);
 }
-RemoveProduct(purchaseId: number, productId: number): Observable<PurchaseDetail> {
-  return this.http.delete<PurchaseDetail>(
-    this.ApiUrl + "/PurchaseDetails/remove/purchase/" + purchaseId + "/product/" + productId
+RemoveProduct(customerId: number, productId: number): Observable<any> {
+  return this.http.delete(
+    this.ApiUrl + "/PurchaseDetails/remove/customer/" + customerId + "/product/" + productId
   );
 }
 

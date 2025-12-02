@@ -54,10 +54,10 @@ export class ShoppingCart implements OnInit {
     }
     this.loading.set(false);
   }
-  removeFromCart(purchaseId: number, productId: number) {
+  removeFromCart( productId: number) {
   if (this.customerId) {
     // משתמש מחובר → שלח לשרת
-    this.purchaseDetailsService.RemoveProduct(purchaseId, productId).subscribe({
+    this.purchaseDetailsService.RemoveProduct(this.customerId, productId).subscribe({
       next: (res) => {
         console.log('המוצר נמחק בהצלחה מהשרת', res);
         this.loadProductsCart();
