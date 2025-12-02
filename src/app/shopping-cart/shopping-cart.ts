@@ -54,30 +54,31 @@ export class ShoppingCart implements OnInit {
     }
     this.loading.set(false);
   }
-  removeFromCart(purchaseId: number, productId: number) {
-  if (this.customerId) {
-    // משתמש מחובר → שלח לשרת
-    this.purchaseDetailsService.RemoveProduct(purchaseId, productId).subscribe({
-      next: (res) => {
-        console.log('המוצר נמחק בהצלחה מהשרת', res);
-        this.loadProductsCart();
-      },
-      error: (err) => {
-        console.error('שגיאה במחיקת המוצר מהשרת:', err);
+  removeFromCart(purchaseDetailId: number, productId: number) {
+    if (this.customerId) {
+      // שולחים customerId, לא purchaseId
+      this.purchaseDetailsService.RemoveProduct(this.customerId, productId).subscribe({
+        next: (res) => {
+          console.log('המוצר נמחק בהצלחה מהשרת', res);
+          this.loadProductsCart();
+        },
+        error: (err) => {
+          console.error('שגיאה במחיקת המוצר מהשרת:', err);
+        }
+      });
+    } else {
+      // לא מחובר – מחיקה מ-localStorage
+      const localCartRaw = localStorage.getItem('cart');
+      if (localCartRaw) {
+        let localCart: PurchaseDetail[] = JSON.parse(localCartRaw);
+        localCart = localCart.filter(item => item.productId !== productId);
+        localStorage.setItem('cart', JSON.stringify(localCart));
+        this.list.set(localCart);
+        console.log('המוצר נמחק מהעגלה המקומית', productId);
       }
-    });
-  } else {
-    // משתמש לא מחובר → הסרה מה-localStorage
-    const localCartRaw = localStorage.getItem('cart');
-    if (localCartRaw) {
-      let localCart: PurchaseDetail[] = JSON.parse(localCartRaw);
-      localCart = localCart.filter(item => item.productId !== productId);
-      localStorage.setItem('cart', JSON.stringify(localCart));
-      this.list.set(localCart); // עדכון ה-UI
-      console.log('המוצר נמחק מהעגלה המקומית', productId);
     }
   }
-}
+  
 
 
 }
