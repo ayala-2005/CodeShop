@@ -54,9 +54,9 @@ export class ShoppingCart implements OnInit {
     }
     this.loading.set(false);
   }
-  removeFromCart(purchaseDetailId: number, productId: number) {
+  removeFromCart( productId: number) {
     if (this.customerId) {
-      // שולחים customerId, לא purchaseId
+      // משתמש מחובר → שלח לשרת
       this.purchaseDetailsService.RemoveProduct(this.customerId, productId).subscribe({
         next: (res) => {
           console.log('המוצר נמחק בהצלחה מהשרת', res);
@@ -67,13 +67,13 @@ export class ShoppingCart implements OnInit {
         }
       });
     } else {
-      // לא מחובר – מחיקה מ-localStorage
+      // משתמש לא מחובר → הסרה מה-localStorage
       const localCartRaw = localStorage.getItem('cart');
       if (localCartRaw) {
         let localCart: PurchaseDetail[] = JSON.parse(localCartRaw);
         localCart = localCart.filter(item => item.productId !== productId);
         localStorage.setItem('cart', JSON.stringify(localCart));
-        this.list.set(localCart);
+        this.list.set(localCart); // עדכון ה-UI
         console.log('המוצר נמחק מהעגלה המקומית', productId);
       }
     }

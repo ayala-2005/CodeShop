@@ -20,7 +20,7 @@ GetCartProducts(customerId: number): Observable<PurchaseDetail[]> {
   return this.http.get<PurchaseDetail[]>(this.ApiUrl + "/PurchaseDetails/GetCartProducts?customerId=" + customerId);
 }
 RemoveProduct(customerId: number, productId: number): Observable<any> {
-  return this.http.delete<any>(
+  return this.http.delete(
     this.ApiUrl + "/PurchaseDetails/remove/customer/" + customerId + "/product/" + productId
   );
 }
