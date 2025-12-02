@@ -34,5 +34,8 @@ AddListToCart(customerId: number, productIds: number[]) {
 GetOpenPurchase(customerId:number):Observable<Purchase>{
   return this.http.get<Purchase>(this.ApiUrl+"/PurchaseDetails/open/"+customerId)
 }
+GetPurchaseDetails(purchaseId: number): Observable<PurchaseDetail[]> {
+  return this.http.get<PurchaseDetail[]>(this.ApiUrl + "/PurchaseDetails/purchase/" + purchaseId);
+}
 }
 

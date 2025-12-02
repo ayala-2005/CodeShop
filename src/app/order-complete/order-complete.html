@@ -1,0 +1,24 @@
+<div class="order-container">
+  <h2 class="title">ההזמנה הושלמה בהצלחה!</h2>
+
+  <p class="subtitle">תודה על הרכישה ❣️</p>
+
+  <div *ngIf="products().length > 0" class="products-list">
+
+    <h3>פרטי ההזמנה</h3>
+
+    <div *ngFor="let p of products()" class="product-card">
+      <div class="product-info">
+        <strong>{{ p.product?.productName }}</strong>
+        <span class="price">₪{{ p.product?.price }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="total-box" *ngIf="products().length > 0">
+    <span>סה״כ:</span>
+    <strong>₪{{ totalAmount() }}</strong>
+  </div>
+
+<button (click)="goToMenu()" class="back-btn">חזרה לתפריט</button>
+</div>

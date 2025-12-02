@@ -77,7 +77,11 @@
 
         <button class="checkout-button" (click)="goToCheckout()">
           המשך לתשלום
-        </button> <button class="continue-shopping-button" (click)="continueShopping()">
+        </button>
+        <div *ngIf="notLoggedInMessage()" class="login-warning">
+          כדי לבצע תשלום יש להתחבר למערכת
+        </div>
+        <button class="continue-shopping-button" (click)="continueShopping()">
           המשך בקניות
         </button>
       </div>

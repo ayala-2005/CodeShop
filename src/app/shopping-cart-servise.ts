@@ -8,8 +8,10 @@ import { Purchase } from './models/purchase'
 export class ShoppingCartServise {
   constructor(private http: HttpClient) { }
   ApiUrl = "https://localhost:7272/api"
-  GetPurchases(customerId:number): Observable<Purchase> {
-    return this.http.get<Purchase>(this.ApiUrl + "/Purchase/"+customerId);
+  GetClosedPurchases(customerId:number): Observable<Purchase[]> {
+    return this.http.get<Purchase[]>(this.ApiUrl + "/Purchase/closed/"+customerId);
   }
-
+ClosePurchase(customerId: number): Observable<Purchase> {
+  return this.http.post<Purchase>(this.ApiUrl + "/Purchase/close/" + customerId, {});
+}
 }

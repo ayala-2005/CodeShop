@@ -1,6 +1,7 @@
 // shopping-cart.component.ts
 import { Component, signal, OnInit } from '@angular/core';
 import { PurchaseDetailsService } from '../purchase-details-service';
+import { ShoppingCartServise } from '../shopping-cart-servise';
 import { PurchaseDetail } from '../models/purchase-detail';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -19,7 +20,7 @@ export class ShoppingCart implements OnInit {
   totalPrice = signal<number>(0);
 
 
-  constructor(private purchaseDetailsService: PurchaseDetailsService,private router: Router) { }
+  constructor(private purchaseDetailsService: PurchaseDetailsService,private ShoppingCartServise: ShoppingCartServise,private router: Router) { }
 
   ngOnInit() {
     const user = localStorage.getItem('currentUser');
@@ -116,10 +117,34 @@ calculateTotal() {
     this.totalPrice.set(total);
   }
 }
-goToCheckout(){
-  
-}
+notLoggedInMessage = signal(false);
 
+ goToCheckout() {
+  if (!this.customerId) {
+    this.notLoggedInMessage.set(true);
+    return;
+  }
+
+  this.ShoppingCartServise.ClosePurchase(this.customerId)
+    .subscribe({
+      next: (purchase) => {
+        // נניח ש-purchase הוא מסוג PurchaseDTO
+        const purchaseId = purchase.purchaseId;
+
+        // שליחה לדף 'order-complete' עם ה-ID כפרמטר
+        this.router.navigate(['/order-complete'], {
+  state: { 
+    purchaseId: purchase.purchaseId,
+    totalAmount: purchase.totalAmount
+  }
+});
+
+      },
+      error: (err) => {
+        console.error('שגיאה בסגירת הקנייה:', err);
+      }
+    });
+}
 continueShopping() {
   this.router.navigate(['/menu']);
 }

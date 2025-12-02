@@ -4,6 +4,7 @@ import { Menu } from './menu/menu';
 import { NotFound } from './not-found/not-found';
 import { ShoppingCart } from './shopping-cart/shopping-cart';
 import { ProductDetails } from './product-details/product-details';
+import { OrderComplete} from './order-complete/order-complete'
 
 
 export const routes: Routes = [
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: 'menu', component: Menu },
   { path: 'shopping-cart', component: ShoppingCart },
   { path: 'product-details', component: ProductDetails },
+  { path: 'order-complete', component: OrderComplete },
   { path: '**', component: NotFound }
 ];
 
