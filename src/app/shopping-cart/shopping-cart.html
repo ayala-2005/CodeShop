@@ -1,8 +1,7 @@
 <div class="products-container">
-  <h2 class="page-title">עגלה שלי</h2>
+  <h2 class="page-title">העגלה שלי</h2>
 
-  <div class="products-section">
-
+  <div class="cart-content">
     <!-- Loading -->
     <div *ngIf="loading()" class="loading-state">
       <div class="spinner"></div>
@@ -11,34 +10,76 @@
 
     <!-- Empty -->
     <div *ngIf="!loading() && list().length === 0" class="empty-state">
-      <p>העגלה ריקה.</p>
+      <p>העגלה ריקה</p>
+      <p style="font-size: 0.9rem; margin-top: 10px; color: #999;">הוסף מוצרים כדי להתחיל</p>
     </div>
 
     <!-- Cart Products -->
-    <div *ngIf="!loading() && list().length > 0" class="products-grid">
-      <div *ngFor="let item of list()" class="product-card">
-        <div class="product-content">
-          <div class="product-icon" *ngIf="item.product?.image; else defaultIcon">
-            <img [src]="item.product?.image" alt="{{ item.product?.productName }}" style="width:60px; height:60px; object-fit:contain; border-radius:5px;">
-          </div>
-          <ng-template #defaultIcon>
-            <div class="product-icon">
-              <span class="code-symbol">&lt;/&gt;</span>
+    <div *ngIf="!loading() && list().length > 0" class="cart-layout">
+      <!-- Cart Items -->
+      <div class="cart-items">
+        <div *ngFor="let item of list()" class="cart-card">
+          <div class="cart-card-content">
+            <!-- Product Icon/Image -->
+            <div class="cart-product-visual">
+              <div *ngIf="item.product?.image; else defaultIcon" class="product-image-wrapper">
+                <img [src]="item.product?.image" [alt]="item.product?.productName" class="product-image">
+              </div>
+              <ng-template #defaultIcon>
+                <div class="product-icon">
+                  <span class="code-symbol">&lt;/&gt;</span>
+                </div>
+              </ng-template>
             </div>
-          </ng-template>
 
-          <div class="product-info">
-            <h3 class="product-name">{{ item.product?.productName }}</h3>
-            <p class="product-price">₪{{ item.product?.price }}</p>
-            <p *ngIf="item.product?.categoryName">קטגוריה: {{ item.product?.categoryName }}</p>
-            <p *ngIf="item.product?.companyName">חברה: {{ item.product?.companyName }}</p>
-            <p *ngIf="item.product?.description">תיאור: {{ item.product?.description }}</p>
-          </div>
+            <!-- Product Details -->
+            <div class="cart-product-details">
+              <h3 class="product-name">{{ item.product?.productName }}</h3>
 
-          <div class="item-actions">
-            <button class="buy-button" (click)="removeFromCart(item.productId)">הסר מהעגלה</button>
+              <div class="product-meta">
+                <span *ngIf="item.product?.categoryName" class="meta-badge">
+                  {{ item.product?.categoryName }}
+                </span>
+                <span *ngIf="item.product?.companyName" class="meta-badge">
+                  {{ item.product?.companyName }}
+                </span>
+              </div>
+
+              <p *ngIf="item.product?.description" class="product-description">
+                {{ item.product?.description }}
+              </p>
+            </div>
+
+            <!-- Price and Actions -->
+            <div class="cart-product-actions">
+              <p class="product-price">₪{{ item.product?.price }}</p>
+              <button class="remove-button" (click)="removeFromCart(item.productId)">
+                הסר מהעגלה
+              </button>
+            </div>
           </div>
         </div>
+      </div>
+
+      <!-- Cart Summary -->
+      <div class="cart-summary">
+        <h3>סיכום הזמנה</h3>
+
+        <div class="summary-row">
+          <span>מספר פריטים:</span>
+          <strong>{{ list().length }}</strong>
+        </div>
+
+        <div class="summary-row total-row">
+          <span>סה"כ לתשלום:</span>
+          <strong class="total-price">₪{{ totalPrice() }}</strong>
+        </div>
+
+        <button class="checkout-button" (click)="goToCheckout()">
+          המשך לתשלום
+        </button> <button class="continue-shopping-button" (click)="continueShopping()">
+          המשך בקניות
+        </button>
       </div>
     </div>
   </div>

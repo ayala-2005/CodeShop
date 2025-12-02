@@ -3,6 +3,7 @@ import { Component, signal, OnInit } from '@angular/core';
 import { PurchaseDetailsService } from '../purchase-details-service';
 import { PurchaseDetail } from '../models/purchase-detail';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -15,8 +16,10 @@ export class ShoppingCart implements OnInit {
   list = signal<PurchaseDetail[]>([]);
   loading = signal<boolean>(true);
   customerId: number | undefined;
+  totalPrice = signal<number>(0);
 
-  constructor(private purchaseDetailsService: PurchaseDetailsService) { }
+
+  constructor(private purchaseDetailsService: PurchaseDetailsService,private router: Router) { }
 
   ngOnInit() {
     const user = localStorage.getItem('currentUser');
@@ -29,6 +32,8 @@ export class ShoppingCart implements OnInit {
       // לא מחובר - טען מ-localStorage
       this.loadLocalCart();
     }
+    this.calculateTotal();
+
   }
 
   loadProductsCart() {
@@ -61,6 +66,7 @@ export class ShoppingCart implements OnInit {
         next: (res) => {
           console.log('המוצר נמחק בהצלחה מהשרת', res);
           this.loadProductsCart();
+          this.calculateTotal();
         },
         error: (err) => {
           console.error('שגיאה במחיקת המוצר מהשרת:', err);
@@ -78,7 +84,43 @@ export class ShoppingCart implements OnInit {
       }
     }
   }
+calculateTotal() {
+  // אם משתמש מחובר
+  if (this.customerId) {
+    this.purchaseDetailsService.GetOpenPurchase(this.customerId).subscribe({
+      next: (data) => {
+        this.totalPrice.set(data.totalAmount); // לוודא שזה השם מהשרת
+      },
+      error: (err) => {
+        console.error('שגיאה בטעינת הקנייה:', err);
+      }
+    });
+  } 
+  // אם משתמש לא מחובר → חישוב מה-localStorage
+  else {
+    const localCartRaw = localStorage.getItem('cart');
+
+    if (!localCartRaw) {
+      this.totalPrice.set(0);
+      return;
+    }
+
+    const localCart = JSON.parse(localCartRaw);
+
+    const total = localCart.reduce((sum: number, item: any) => {
+      const price = item.product?.price ?? 0;   // אם המודל כולל product
+      const quantity = item.quantity ?? 1;
+      return sum + price * quantity;
+    }, 0);
+
+    this.totalPrice.set(total);
+  }
+}
+goToCheckout(){
   
+}
 
-
+continueShopping() {
+  this.router.navigate(['/menu']);
+}
 }
