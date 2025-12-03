@@ -3,7 +3,9 @@
 
   <div class="main-content">
     <div class="filter-panel" role="region" aria-labelledby="filter-title">
-      <h2 id="filter-title">סינון<button class="reset-btn" (click)="resetFilters()">איפוס</button></h2>
+      <h2 id="filter-title">סינון
+        <button class="reset-btn" (click)="resetFilters()">איפוס</button>
+      </h2>
 
       <div class="filter-section">
         <h3>לפי שפה</h3>
@@ -21,24 +23,24 @@
         <ul>
           <li><label><input type="radio" name="company" value="CodeLab" (change)="select()"> CodeLab</label></li>
           <li><label><input type="radio" name="company" value="DevTools" (change)="select()"> DevTools</label></li>
-          <li><label><input type="radio" name="company" value="SmartFunctions" (change)="select()">SmartFunctions</label></li>
+          <li><label><input type="radio" name="company" value="SmartFunctions" (change)="select()"> SmartFunctions</label></li>
           <li><label><input type="radio" name="company" value="LogicWorks" (change)="select()"> LogicWorks</label></li>
         </ul>
       </div>
     </div>
 
     <div class="products-section">
-      <div *ngIf="loading()" class="loading-state">
+      <div *ngIf="loading" class="loading-state">
         <div class="spinner"></div>
         <p>טוען מוצרים...</p>
       </div>
 
-      <div *ngIf="!loading() && list().length === 0" class="empty-state">
+      <div *ngIf="!loading && list.length === 0" class="empty-state">
         <p>אין מוצרים להצגה</p>
       </div>
 
-      <div *ngIf="!loading() && list().length > 0" class="products-grid">
-        <div *ngFor="let product of list()" class="product-card" (click)="details(product)">
+      <div *ngIf="!loading && list.length > 0" class="products-grid">
+        <div *ngFor="let product of list" class="product-card" (click)="details(product)">
           <div class="product-content">
             <div class="product-icon">
               <span class="code-symbol">&lt;/&gt;</span>
@@ -52,10 +54,9 @@
         </div>
       </div>
     </div>
-  </div> <!-- סוף main-content -->
-</div> <!-- סוף products-container -->
+  </div> 
+</div> 
 
-
-<div class="toast" *ngIf="toastVisible()">
-  {{ toastMessage() }}
+<div class="toast" *ngIf="toastVisible">
+  {{ toastMessage }}
 </div>
