@@ -1,15 +1,74 @@
-:host {
-  display: block;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
 .page-bg {
-  margin-top: 90px;                 /* גובה ה־header */
-  min-height: calc(100vh - 90px);   /* שיתפרס עד סוף המסך */
-  
+  margin-top: 90px;
+  min-height: calc(100vh - 90px);
   background-image: url('/assets/home.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  position: relative;
+}
+
+.page-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5); /* כהה יותר לקריאות */
+  z-index: 0;
+}
+
+.page-bg h1,
+.page-bg p,
+.page-bg .homepage-features,
+.page-bg .cta-button {
+  position: relative;
+  z-index: 1; /* מוודא שהטקסט והכפתור מעל השכבה הכהה */
+  color: #ffffff;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: rgba(255,255,255,0.9);
+  color: #333;
+  padding: 12px 30px;
+  font-size: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.homepage-features {
+  margin-top: 50px;
+  max-width: 800px;
+  text-align: center; /* מרכז את רשימת התכונות */
+}
+
+.homepage-features ul {
+  list-style-type: disc;
+  padding-left: 0;
+  display: inline-block; /* מאפשר למרכז את הרשימה */
+  text-align: left;
+}
+
+.homepage-features li {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #f0f0f0;
 }
