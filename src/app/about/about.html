@@ -35,17 +35,18 @@
       </p>
     </div>
   
-    <!-- הצוות שלנו -->
-    <div class="about-section fade-in">
-      <h2>הצוות שלנו</h2>
-      <div class="team-cards">
-        <div class="team-card" *ngFor="let member of team">
-          <img [src]="member.photo" alt="{{member.name}}">
-          <h3>{{member.name}}</h3>
-          <p>{{member.role}}</p>
+    <div class="team-section fade-in">
+        <h2>הצוות שלנו</h2>
+      
+        <div class="team-cards">
+          <div class="team-card" *ngFor="let member of team">
+            <div class="team-icon">{{ member.icon }}</div>
+            <h3>{{ member.name }}</h3>
+            <p>{{ member.role }}</p>
+          </div>
         </div>
       </div>
-    </div>
+      
   
     <!-- ציטוט -->
     <div class="about-section quote fade-in">

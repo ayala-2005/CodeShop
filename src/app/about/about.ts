@@ -18,9 +18,10 @@ export class About {
   ];
 
   team = [
-    { name: 'מיכאל', role: 'מנהל טכנולוגי', photo: 'https://i.pravatar.cc/150?img=12' },
-    { name: 'שרה', role: 'מפתחת תוכנה', photo: 'https://i.pravatar.cc/150?img=14' },
-    { name: 'דניאל', role: 'מעצב UX/UI', photo: 'https://i.pravatar.cc/150?img=16' },
-    { name: 'אייל', role: 'תמיכה ושירות לקוחות', photo: 'https://i.pravatar.cc/150?img=18' }
+    { name: 'מיכאל', role: 'מנהל טכנולוגי', icon: '🧠' },
+    { name: 'שרה', role: 'מפתחת תוכנה', icon: '💻' },
+    { name: 'דניאל', role: 'מעצב UX/UI', icon: '🎨' },
+    { name: 'אייל', role: 'תמיכה ושירות לקוחות', icon: '🎧' }
   ];
+  
 }
