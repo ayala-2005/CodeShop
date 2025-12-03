@@ -21,6 +21,19 @@ export class Menu implements OnInit {
   loading = signal<boolean>(true);
   customerId = JSON.parse(localStorage.getItem('currentUser') || '{}').customerId;
 
+
+  toastVisible = signal<boolean>(false);
+toastMessage = signal<string>("");
+showToast(message: string) {
+  this.toastMessage.set(message);
+  this.toastVisible.set(true);
+
+  setTimeout(() => {
+    this.toastVisible.set(false);
+  }, 2500); 
+}
+
+
   constructor(private ProductService: ProductService,private PurchaseDetailsService:PurchaseDetailsService, private cdr: ChangeDetectorRef, private router: Router) {
 
   }
@@ -122,9 +135,11 @@ export class Menu implements OnInit {
       .subscribe({
         next: (res) => {
           console.log("נוסף בהצלחה בשרת", res);
+          this.showToast("המוצר נוסף לעגלה ✔");
         },
         error: (err) => {
           console.error("שגיאה בהוספת מוצר לשרת", err);
+          this.showToast("המוצר כבר קיים בעגלה");
         }
       });
   } else {
@@ -143,10 +158,13 @@ export class Menu implements OnInit {
       });
       localStorage.setItem('cart', JSON.stringify(localCart));
       console.log("המוצר נוסף לסל מקומי", product.productId);
+      this.showToast("המוצר נוסף לעגלה ✔");
     } else {
       console.log("המוצר כבר קיים בעגלה המקומית", product.productId);
+      this.showToast("המוצר כבר קיים בעגלה");
     }
   }
+
 }
 
 }

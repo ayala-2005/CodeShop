@@ -3,7 +3,7 @@
 
   <div class="main-content">
     <div class="filter-panel" role="region" aria-labelledby="filter-title">
-      <h2 id="filter-title">סינון<button class="reset-btn" (click)="resetFilters()" >איפוס</button></h2>
+      <h2 id="filter-title">סינון<button class="reset-btn" (click)="resetFilters()">איפוס</button></h2>
 
       <div class="filter-section">
         <h3>לפי שפה</h3>
@@ -13,7 +13,6 @@
           <li><label><input type="radio" name="lang" value="JavaScript" (change)="select()"> JavaScript</label></li>
           <li><label><input type="radio" name="lang" value="SQL" (change)="select()"> SQL</label></li>
           <li><label><input type="radio" name="lang" value="Pseudocode" (change)="select()"> Pseudocode</label></li>
-
         </ul>
       </div>
 
@@ -21,20 +20,14 @@
         <h3>חברות</h3>
         <ul>
           <li><label><input type="radio" name="company" value="CodeLab" (change)="select()"> CodeLab</label></li>
-          <li><label><input type="radio" name="company" value="DevTools" (change)="select()"> DevTools</label>
-          </li>
-          <li><label><input type="radio" name="company" value="SmartFunctions"
-                (change)="select()">SmartFunctions</label></li>
-          <li><label><input type="radio" name="company" value="LogicWorks" (change)="select()"> LogicWorks</label>
-          </li>
-
+          <li><label><input type="radio" name="company" value="DevTools" (change)="select()"> DevTools</label></li>
+          <li><label><input type="radio" name="company" value="SmartFunctions" (change)="select()">SmartFunctions</label></li>
+          <li><label><input type="radio" name="company" value="LogicWorks" (change)="select()"> LogicWorks</label></li>
         </ul>
       </div>
     </div>
 
     <div class="products-section">
-
-
       <div *ngIf="loading()" class="loading-state">
         <div class="spinner"></div>
         <p>טוען מוצרים...</p>
@@ -44,7 +37,7 @@
         <p>אין מוצרים להצגה</p>
       </div>
 
-      <div  *ngIf="!loading() && list().length > 0" class="products-grid">
+      <div *ngIf="!loading() && list().length > 0" class="products-grid">
         <div *ngFor="let product of list()" class="product-card" (click)="details(product)">
           <div class="product-content">
             <div class="product-icon">
@@ -53,9 +46,16 @@
             <div class="product-info">
               <h3 class="product-name">{{ product.productName }}</h3>
               <p class="product-price">₪{{ product.price }}</p>
-              <button class="buy-button" (click)="addProduct(product);$event.stopPropagation()">הוסף לעגלה</button>
+              <button class="buy-button" (click)="addProduct(product); $event.stopPropagation()">הוסף לעגלה</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div> <!-- סוף main-content -->
+</div> <!-- סוף products-container -->
+
+
+<div class="toast" *ngIf="toastVisible()">
+  {{ toastMessage() }}
+</div>

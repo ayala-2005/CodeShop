@@ -1,0 +1,57 @@
+<div class="about-container">
+    <div class="about-header">
+      <h1>ברוכים הבאים לחנות הקודים שלנו!</h1>
+      <p>הבית שלך לכל קודי התכנות והמשאבים שאתה צריך.</p>
+    </div>
+  
+    <!-- מי אנחנו -->
+    <div class="about-section fade-in">
+      <h2>מי אנחנו?</h2>
+      <p>
+        אנחנו חנות מקוונת שמתמחה במכירת קודי תכנות מוכנים בכל שפה מודרנית –
+        מ-C# ו-JavaScript ועד Python ו-Go. החזון שלנו הוא לאפשר למפתחים מכל הרמות
+        להתקדם בפרויקטים שלהם במהירות ובקלות.
+      </p>
+    </div>
+  
+    <!-- מה אנחנו מציעים -->
+    <div class="about-section fade-in">
+      <h2>מה אנחנו מציעים?</h2>
+      <div class="cards">
+        <div class="card" *ngFor="let feature of features">
+          <div class="icon">{{feature.icon}}</div>
+          <h3>{{feature.title}}</h3>
+          <p>{{feature.description}}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- החזון והקהילה -->
+    <div class="about-section fade-in">
+      <h2>החזון שלנו</h2>
+      <p>
+        ליצור קהילה של מפתחים, שמקבלת קודים איכותיים, הדרכה מקצועית ותמיכה אישית.
+        אנחנו מאמינים שבאמצעות קוד טוב ניתן ללמוד מהר יותר, ולבנות פרויקטים איכותיים.
+      </p>
+    </div>
+  
+    <!-- הצוות שלנו -->
+    <div class="about-section fade-in">
+      <h2>הצוות שלנו</h2>
+      <div class="team-cards">
+        <div class="team-card" *ngFor="let member of team">
+          <img [src]="member.photo" alt="{{member.name}}">
+          <h3>{{member.name}}</h3>
+          <p>{{member.role}}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- ציטוט -->
+    <div class="about-section quote fade-in">
+      <blockquote>
+        "הקוד שלנו – הקפיצה שלך להצלחה בתכנות!"
+      </blockquote>
+    </div>
+  </div>
+  
