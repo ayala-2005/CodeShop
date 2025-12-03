@@ -62,12 +62,14 @@ export class App implements OnInit {
 
   this.updateActiveLinkFromRoute();
 
-  this.router.events
-    .pipe(filter(e => e instanceof NavigationEnd))
-    .subscribe(() => {
-      this.updateActiveLinkFromRoute();
-      window.scrollTo({ top: 0, behavior: 'smooth' }); // כאן זה יביא את הדף למעלה
-    });
+ this.router.events
+  .pipe(filter(e => e instanceof NavigationEnd))
+  .subscribe(() => {
+    this.updateActiveLinkFromRoute();
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
 }
 
 
