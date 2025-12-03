@@ -221,6 +221,79 @@ margin-right: 8px;
 .reset-btn:hover {
 background: #d5d5d5;
 }
+.price-filter {
+  padding: 8px 0;
+}
+
+.price-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+.range-slider {
+  position: relative;
+  height: 40px;
+}
+
+.slider {
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  background: transparent;
+  outline: none;
+  -webkit-appearance: none;
+  pointer-events: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #3498db;
+  cursor: pointer;
+  border-radius: 50%;
+  pointer-events: all;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #3498db;
+  cursor: pointer;
+  border-radius: 50%;
+  pointer-events: all;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  background: #ddd;
+  border-radius: 3px;
+}
+
+.slider::-moz-range-track {
+  width: 100%;
+  height: 6px;
+  background: #ddd;
+  border-radius: 3px;
+}
+
+.slider-max::-webkit-slider-thumb {
+  background: #e74c3c;
+}
+
+.slider-max::-moz-range-thumb {
+  background: #e74c3c;
+}
 
 /* Responsive Design */
 @media (max-width: 968px) {

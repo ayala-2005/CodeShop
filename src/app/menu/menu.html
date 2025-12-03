@@ -13,10 +13,10 @@
       <div class="filter-section">
         <h3>לפי שפה</h3>
         <ul>
-          <li><label><input type="radio" name="lang" value="C%23"        (change)="select()"> C#</label></li>
-          <li><label><input type="radio" name="lang" value="Python"     (change)="select()"> Python</label></li>
+          <li><label><input type="radio" name="lang" value="C%23" (change)="select()"> C#</label></li>
+          <li><label><input type="radio" name="lang" value="Python" (change)="select()"> Python</label></li>
           <li><label><input type="radio" name="lang" value="JavaScript" (change)="select()"> JavaScript</label></li>
-          <li><label><input type="radio" name="lang" value="SQL"        (change)="select()"> SQL</label></li>
+          <li><label><input type="radio" name="lang" value="SQL" (change)="select()"> SQL</label></li>
           <li><label><input type="radio" name="lang" value="Pseudocode" (change)="select()"> Pseudocode</label></li>
         </ul>
       </div>
@@ -24,13 +24,35 @@
       <div class="filter-section">
         <h3>חברות</h3>
         <ul>
-          <li><label><input type="radio" name="company" value="CodeLab"        (change)="select()"> CodeLab</label></li>
-          <li><label><input type="radio" name="company" value="DevTools"       (change)="select()"> DevTools</label></li>
-          <li><label><input type="radio" name="company" value="SmartFunctions" (change)="select()"> SmartFunctions</label></li>
-          <li><label><input type="radio" name="company" value="LogicWorks"     (change)="select()"> LogicWorks</label></li>
+          <li><label><input type="radio" name="company" value="CodeLab" (change)="select()"> CodeLab</label></li>
+          <li><label><input type="radio" name="company" value="DevTools" (change)="select()"> DevTools</label></li>
+          <li><label><input type="radio" name="company" value="SmartFunctions" (change)="select()">
+              SmartFunctions</label></li>
+          <li><label><input type="radio" name="company" value="LogicWorks" (change)="select()"> LogicWorks</label></li>
         </ul>
       </div>
+
+      <!-- טווח מחיר - הוזז לכאן! -->
+      <div class="filter-section">
+        <h3>טווח מחיר</h3>
+        <div class="price-filter">
+          <div class="price-labels">
+            <span>₪{{ priceFilterMin() }}</span>
+            <span>₪{{ priceFilterMax() }}</span>
+          </div>
+
+          <div class="range-slider">
+            <input type="range" id="priceMin" min="0" max="500" [value]="priceFilterMin()"
+              (input)="updatePriceFilter(+$any($event.target).value, priceFilterMax())" class="slider slider-min">
+
+            <input type="range" id="priceMax" min="0" max="500" [value]="priceFilterMax()"
+              (input)="updatePriceFilter(priceFilterMin(), +$any($event.target).value)" class="slider slider-max">
+          </div>
+        </div>
+      </div>
+
     </div>
+    <!-- כאן נגמר ה-filter-panel -->
 
     <!-- רשימת מוצרים -->
     <div class="products-section">
@@ -59,8 +81,7 @@
               <h3 class="product-name">{{ product.productName }}</h3>
               <p class="product-price">₪{{ product.price }}</p>
 
-              <button class="buy-button"
-                      (click)="addProduct(product); $event.stopPropagation()">
+              <button class="buy-button" (click)="addProduct(product); $event.stopPropagation()">
                 הוסף לעגלה
               </button>
             </div>

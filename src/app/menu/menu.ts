@@ -16,6 +16,12 @@ export class Menu implements OnInit {
 
   selectedCompany: string | null = null;
   selectedCategory: string | null = null;
+  // הוסף אחרי selectedCategory:
+minPrice = signal(0);
+maxPrice = signal(500);
+
+priceFilterMin = signal(0);
+priceFilterMax = signal(500);
 
   list = signal<Product[]>([]);
   loading = signal(true);
@@ -65,54 +71,60 @@ export class Menu implements OnInit {
   select(): void {
     const companyInput = document.querySelector<HTMLInputElement>('input[name="company"]:checked');
     const categoryInput = document.querySelector<HTMLInputElement>('input[name="lang"]:checked');
-
+  
     const company = companyInput ? companyInput.value : null;
     const category = categoryInput ? categoryInput.value : null;
-
+  
     this.loading.set(true);
-
+  
+    let observable;
+  
     if (company && category) {
-      this.ProductService.SelectByCompanyAndCategory(company, category).subscribe({
-        next: (data: Product[]) => {
-          this.list.set(data);
-          this.loading.set(false);
-        },
-        error: () => this.loading.set(false)
-      });
-
+      observable = this.ProductService.SelectByCompanyAndCategory(company, category);
     } else if (company) {
-      this.ProductService.SelectByCompany(company).subscribe({
-        next: (data: Product[]) => {
-          this.list.set(data);
-          this.loading.set(false);
-        },
-        error: () => this.loading.set(false)
-      });
-
+      observable = this.ProductService.SelectByCompany(company);
     } else if (category) {
-      this.ProductService.SelectByCategory(category).subscribe({
-        next: (data: Product[]) => {
-          this.list.set(data);
-          this.loading.set(false);
-        },
-        error: () => this.loading.set(false)
-      });
-
+      observable = this.ProductService.SelectByCategory(category);
     } else {
-      this.list.set([]);
-      this.loading.set(false);
+      observable = this.ProductService.getAllProducts();
     }
+  
+    observable.subscribe({
+      next: (data: Product[]) => {
+        // סינון לפי מחיר
+        const filtered = data.filter(p => 
+          p.price >= this.priceFilterMin() && p.price <= this.priceFilterMax()
+        );
+        this.list.set(filtered);
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false)
+    });
   }
 
   resetFilters(): void {
     const checkedInputs = document.querySelectorAll<HTMLInputElement>('input[type="radio"]:checked');
     checkedInputs.forEach(i => i.checked = false);
-
+  
     this.selectedCompany = null;
     this.selectedCategory = null;
-
+    
+    // איפוס מחיר
+    this.priceFilterMin.set(0);
+    this.priceFilterMax.set(500);
+    const minSlider = document.querySelector<HTMLInputElement>('#priceMin');
+    const maxSlider = document.querySelector<HTMLInputElement>('#priceMax');
+    if (minSlider) minSlider.value = '0';
+    if (maxSlider) maxSlider.value = '500';
+  
     this.loadProducts();
   }
+  // הוסף פונקציה חדשה אחרי resetFilters():
+updatePriceFilter(min: number, max: number): void {
+  this.priceFilterMin.set(min);
+  this.priceFilterMax.set(max);
+  this.select();
+}
 
   details(product: Product) {
     this.router.navigate(['/product-details'], { state: { product } });
