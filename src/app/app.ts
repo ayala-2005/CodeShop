@@ -16,7 +16,7 @@ import { Customer } from './models/customer';
   styleUrls: ['./app.css']
 })
 export class App implements OnInit {
-  protected readonly title = signal('foodShope');
+  protected readonly title = signal('CodeShop');
   protected activeLink = signal<string>('home');
 
   /** האם המשתמש מחובר */
