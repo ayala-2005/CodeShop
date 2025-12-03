@@ -47,24 +47,29 @@ export class App implements OnInit {
   private platformId = inject(PLATFORM_ID);
 
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      const savedUser = localStorage.getItem('currentUser');
-      if (savedUser) {
-        try {
-          const user = JSON.parse(savedUser);
-          this.currentUser.set(user);
-          this.isLoggedIn.set(true);
-        } catch (e) {
-          localStorage.removeItem('currentUser');
-        }
+  if (isPlatformBrowser(this.platformId)) {
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+      try {
+        const user = JSON.parse(savedUser);
+        this.currentUser.set(user);
+        this.isLoggedIn.set(true);
+      } catch (e) {
+        localStorage.removeItem('currentUser');
       }
     }
-
-    this.updateActiveLinkFromRoute();
-    this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(() => this.updateActiveLinkFromRoute());
   }
+
+  this.updateActiveLinkFromRoute();
+
+  this.router.events
+    .pipe(filter(e => e instanceof NavigationEnd))
+    .subscribe(() => {
+      this.updateActiveLinkFromRoute();
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // כאן זה יביא את הדף למעלה
+    });
+}
+
 
   updateActiveLinkFromRoute() {
     const currentRoute = this.router.url;
@@ -210,6 +215,8 @@ export class App implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('currentUser');
     }
+      this.router.navigate(['/home-page']);
+
   }
 
   setActive(link: string, event: MouseEvent) {

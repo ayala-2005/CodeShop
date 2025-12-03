@@ -6,7 +6,7 @@
 
     <div class="user-menu" *ngIf="showUserMenu()">
       <ng-container *ngIf="isLoggedIn(); else notLogged">
-        <a (click)="router.navigate(['/orders']); showUserMenu.set(false)">הזמנות שלי</a>
+        <a (click)="router.navigate(['/MyPurchas']); showUserMenu.set(false)">הזמנות שלי</a>
         <a (click)="logoutUser()">התנתקות</a>
       </ng-container>
 

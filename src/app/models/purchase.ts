@@ -1,18 +1,24 @@
-import { PurchaseDetail } from "./purchase-detail"
+export interface Purchase {
+  purchaseId: number;
+  customerId: number;
+  purchaseDate: string;  
+  totalAmount: number;
+  note: string | null;
+  isOpen: boolean;
 
-export class Purchase {
-    purchaseId:number
-    customerId:number
-    purchaseDate:Date
-    totalAmount:number
-    note:string
-
-    constructor(PurchaseId:number,CustomerId:number,PurchaseDate:Date,TotalAmount:number,Note:string)
-    {
-        this.purchaseId=PurchaseId
-        this.customerId=CustomerId
-        this.purchaseDate=PurchaseDate
-        this.totalAmount=TotalAmount
-        this.note=Note
-    }
+  // constructor(
+  //   purchaseId: number,
+  //   customerId: number,
+  //   purchaseDate: string,
+  //   totalAmount: number,
+  //   note: string | null,
+  //   isOpen: boolean
+  // ) {
+  //   this.purchaseId = purchaseId;
+  //   this.customerId = customerId;
+  //   this.purchaseDate = purchaseDate;
+  //   this.totalAmount = totalAmount;
+  //   this.note = note;
+  //   this.isOpen = isOpen;
+  // }
 }

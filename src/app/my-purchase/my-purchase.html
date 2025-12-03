@@ -1,0 +1,77 @@
+<h2>ההזמנות שלי</h2>
+
+<!-- מצב טעינה -->
+<div *ngIf="loading()" class="loading">
+  טוען רכישות...
+</div>
+
+<!-- הודעת שגיאה -->
+<div *ngIf="!loading() && error()" class="error">
+  ארעה שגיאה בשליפת הרכישות. נסה שוב מאוחר יותר.
+</div>
+
+<!-- אין רכישות -->
+<div *ngIf="!loading() && !error() && purchases().length === 0" class="no-purchases">
+  אין רכישות להצגה.
+</div>
+
+<!-- רשימת רכישות -->
+<ul *ngIf="!loading() && !error() && purchases().length > 0" class="purchase-list">
+  <li *ngFor="let p of purchases()" class="purchase-item">
+   
+    <div>
+      <strong>תאריך:</strong> {{ p.purchaseDate }}
+    </div>
+    <div>
+      <strong>סכום כולל:</strong> ₪{{ p.totalAmount }}
+    </div>
+    <div *ngIf="p.note">
+      <strong>הערה:</strong> {{ p.note }}
+    </div>
+    <button class="details-btn" (click)="openPurchaseDetails(p.purchaseId)">
+      פרטי הזמנה
+    </button>
+  </li>
+</ul>
+
+<!-- מודאל פרטי הזמנה -->
+<div class="modal-backdrop" *ngIf="showModal()" (click)="closeModal()"></div>
+
+<div class="modal" *ngIf="showModal()">
+  <div class="modal-header">
+    <h3>פרטי הזמנה</h3>
+    <button class="close-btn" (click)="closeModal()">×</button>
+  </div>
+
+  <div class="modal-content">
+    <!-- טוען פרטים -->
+    <div *ngIf="loadingDetails()" class="loading">
+      טוען פרטים...
+    </div>
+
+    <!-- פרטי ההזמנה -->
+    <div *ngIf="!loadingDetails() && selectedPurchaseDetails()">
+   
+
+      <h4>מוצרים בהזמנה:</h4>
+      <ul class="products-list">
+        <li *ngFor="let item of selectedPurchaseDetails()" class="product-item">
+          <div class="product-details">
+            <div>
+              <strong>שם המוצר:</strong> {{ item.product.productName }}
+            </div>
+            <div>
+              <strong>קטגוריה:</strong> {{ item.product.category }}
+            </div>
+            <div>
+              <strong>מחיר:</strong> ₪{{ item.product.price }}
+            </div>
+            <div *ngIf="item.product.description">
+              <strong>תיאור:</strong> {{ item.product.description }}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

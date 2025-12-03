@@ -1,0 +1,254 @@
+/* קובץ my-purchase.css */
+
+/* כותרת */
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* הודעת טעינה ושגיאה */
+.loading,
+.error {
+  text-align: center;
+  font-size: 18px;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.loading {
+  background-color: #f0f8ff; /* צבע רקע בהיר */
+  color: #007bff; /* כחול */
+}
+
+.error {
+  background-color: #ffe6e6; /* רקע אדמדם */
+  color: #d9534f; /* אדום */
+}
+
+/* רשימת רכישות */
+.purchase-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* רווח בין רכישות */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* רכישה בודדת */
+.purchase-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px 20px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.purchase-item:hover {
+  transform: translateY(-2px);
+}
+
+/* פרטי רכישה */
+.purchase-item div {
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #555;
+}
+
+.purchase-item strong {
+  color: #333;
+}
+
+/* כפתור פרטי הזמנה */
+.purchase-item button {
+  margin-top: 10px;
+  padding: 8px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.purchase-item button:hover {
+  background-color: #0056b3;
+}
+.details-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.details-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.details-content h3 {
+  margin-top: 0;
+}
+
+.details-content button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.details-content button:hover {
+  background-color: #0056b3;
+}
+
+.purchase-list {
+  list-style: none;
+  padding: 0;
+}
+
+.purchase-item {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.purchase-item div {
+  margin-bottom: 10px;
+}
+
+.details-btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.details-btn:hover {
+  background: #45a049;
+}
+
+/* מודאל */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 10px;
+  padding: 0;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #999;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.purchase-info {
+  background: #f0f0f0;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.purchase-info p {
+  margin: 5px 0;
+}
+
+.products-list {
+  list-style: none;
+  padding: 0;
+}
+
+.product-item {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.product-item div {
+  margin-bottom: 5px;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.error {
+  background: #ffebee;
+  color: #c62828;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 0;
+}
+
+.no-purchases {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+}
