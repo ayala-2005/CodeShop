@@ -1,3 +1,7 @@
+/* ========================================
+   עיצוב עמוד הבית - CodeShop
+======================================== */
+
 .page-bg {
   margin-top: 90px;
   min-height: calc(100vh - 90px);
@@ -5,12 +9,14 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 3rem 2rem;
 
   position: relative;
 }
@@ -22,53 +28,234 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5); /* כהה יותר לקריאות */
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(36, 43, 61, 0.85));
   z-index: 0;
 }
 
-.page-bg h1,
-.page-bg p,
-.page-bg .homepage-features,
-.page-bg .cta-button {
+/* ========================================
+   כותרת ראשית
+======================================== */
+.page-bg h1 {
   position: relative;
-  z-index: 1; /* מוודא שהטקסט והכפתור מעל השכבה הכהה */
+  z-index: 1;
   color: #ffffff;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+  text-shadow: 0 0 30px rgba(0, 247, 255, 0.5),
+               0 4px 10px rgba(0, 0, 0, 0.5);
+  line-height: 1.3;
 }
 
-.cta-button {
-  display: inline-block;
-  background-color: rgba(255,255,255,0.9);
-  color: #333;
-  padding: 12px 30px;
-  font-size: 1rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  margin-top: 20px;
-  transition: all 0.3s ease;
+/* ========================================
+   פסקת פתיחה
+======================================== */
+.page-bg > p {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.2rem;
+  line-height: 1.7;
+  max-width: 900px;
+  margin: 0 auto 1.5rem;
+  padding: 0 1rem;
+  font-weight: 400;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-.cta-button:hover {
-  background-color: #fff;
-  color: #000;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
+/* ========================================
+   קופסת תכונות
+======================================== */
 .homepage-features {
-  margin-top: 50px;
-  max-width: 800px;
-  text-align: center; /* מרכז את רשימת התכונות */
+  position: relative;
+  z-index: 1;
+  margin-top: 1rem;
+  max-width: 950px;
+  width: 100%;
+  background: rgba(36, 43, 61, 0.9);
+  border: 1px solid rgba(0, 247, 255, 0.3);
+  border-radius: 20px;
+  padding: 2rem 2rem;
+  box-shadow: 0 0 50px rgba(0, 247, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
+.homepage-features h2 {
+  color: #00f7ff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 20px rgba(0, 247, 255, 0.4);
+  letter-spacing: 0.5px;
+}
+
+/* ========================================
+   רשימת תכונות
+======================================== */
 .homepage-features ul {
-  list-style-type: disc;
-  padding-left: 0;
-  display: inline-block; /* מאפשר למרכז את הרשימה */
-  text-align: left;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 1.2rem;
+  text-align: right;
 }
 
 .homepage-features li {
-  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 247, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.3rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.95);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.homepage-features li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #00f7ff, #e8f573);
+}
+
+.homepage-features li:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 247, 255, 0.5);
+  box-shadow: 0 8px 30px rgba(0, 247, 255, 0.3);
+}
+
+.homepage-features li strong {
+  color: #e8f573;
+  font-weight: 700;
   font-size: 1.1rem;
-  color: #f0f0f0;
+  display: block;
+  margin-bottom: 0.4rem;
+  text-shadow: 0 0 10px rgba(232, 245, 115, 0.3);
+}
+
+/* ========================================
+   כפתור CTA
+======================================== */
+.cta-button {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  background: linear-gradient(135deg, #00f7ff 0%, #00d4db 100%);
+  color: #242b3d;
+  padding: 1.2rem 3rem;
+  font-size: 1.2rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 3rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 25px rgba(0, 247, 255, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 40px rgba(0, 247, 255, 0.6);
+  background: linear-gradient(135deg, #00f7ff 0%, #00b8c4 100%);
+}
+
+.cta-button:active {
+  transform: translateY(-1px);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 1024px) {
+  .homepage-features ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-bg {
+    padding: 2rem 1rem;
+  }
+
+  .page-bg h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .page-bg > p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .homepage-features {
+    padding: 2rem 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .homepage-features h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .homepage-features ul {
+    gap: 1.5rem;
+  }
+
+  .homepage-features li {
+    padding: 1.5rem;
+    font-size: 1.05rem;
+  }
+
+  .homepage-features li strong {
+    font-size: 1.15rem;
+  }
+
+  .cta-button {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-bg h1 {
+    font-size: 2rem;
+  }
+
+  .page-bg > p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .homepage-features {
+    padding: 1.5rem 1rem;
+  }
+
+  .homepage-features h2 {
+    font-size: 1.5rem;
+  }
+
+  .homepage-features li {
+    padding: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .homepage-features li strong {
+    font-size: 1.1rem;
+  }
+
+  .cta-button {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+  }
 }
