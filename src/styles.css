@@ -275,7 +275,7 @@ body {
 ======================================== */
 .user-menu {
   position: absolute;
-  bottom: 70px;
+  top:  70px;
   right: 0;
   background: #1a2332;
   border-radius: 12px;

@@ -119,7 +119,6 @@ priceFilterMax = signal(500);
   
     this.loadProducts();
   }
-  // הוסף פונקציה חדשה אחרי resetFilters():
 updatePriceFilter(min: number, max: number): void {
   this.priceFilterMin.set(min);
   this.priceFilterMax.set(max);

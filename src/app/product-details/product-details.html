@@ -1,23 +1,74 @@
-<div class="product-card" *ngIf="product">
+<div class="product-details-container">
+  <h2 class="page-title">פרטי מוצר</h2>
 
-  <img class="product-image" [src]="product.image" alt="תמונה של {{ product.productName }}" />
-
-  <div class="product-info">
-    <h2>{{ product.productName }}</h2>
-
-    <p class="description">{{ product.description }}</p>
-
-    <p class="price">מחיר: ₪{{ product.price }}</p>
-
-    <div class="details">
-      <p><strong>מקט מוצר:</strong> {{ product.productId }}</p>
-      <p><strong>קטגוריה:</strong> {{ product.categoryName || 'לא מוגדר' }}</p>
-      <p><strong>חברה:</strong> {{ product.companyName || 'לא מוגדר' }}</p>
-      <p>
-        <strong>עודכן לאחרונה:</strong>
-        {{ product.lastUpdateDate ? (product.lastUpdateDate | date: 'dd/MM/yyyy - HH:mm') : '—' }}
-      </p>
+  <div class="product-details-card" *ngIf="product">
+    <!-- תמונת מוצר -->
+    <div class="product-image-section">
+      <div class="image-wrapper">
+        <img 
+          *ngIf="product.image" 
+          class="product-image" 
+          [src]="'assets/' + product.image" 
+          [alt]="'תמונה של ' + product.productName" 
+        />
+        <div *ngIf="!product.image" class="product-icon-large">
+          <span class="code-symbol">&lt;/&gt;</span>
+        </div>
+      </div>
     </div>
+
+    <!-- פרטי מוצר -->
+    <div class="product-info-section">
+      <h2 class="product-title">{{ product.productName }}</h2>
+
+      <p class="product-description">{{ product.description }}</p>
+
+      <div class="product-price-section">
+        <span class="price-label">מחיר:</span>
+        <span class="product-price">₪{{ product.price }}</span>
+      </div>
+
+     
+
+      <div class="product-details-grid">
+        <div class="detail-item">
+          <span class="detail-label">מק"ט מוצר:</span>
+          <span class="detail-value">{{ product.productId }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">קטגוריה:</span>
+          <span class="detail-value">{{ product.categoryName || 'לא מוגדר' }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">חברה:</span>
+          <span class="detail-value">{{ product.companyName || 'לא מוגדר' }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">עודכן לאחרונה:</span>
+          <span class="detail-value">
+            {{ product.lastUpdateDate ? (product.lastUpdateDate | date: 'dd/MM/yyyy - HH:mm') : '—' }}
+          </span>
+        </div>
+      </div>
+       <button class="add-to-cart-btn" (click)="addProduct(product)">
+        <span class="cart-icon">🛒</span>
+        הוסף לעגלה
+      </button>
+    </div>
+    
   </div>
 
+  <!-- מצב טעינה -->
+  <div *ngIf="!product" class="loading-state">
+    <div class="spinner"></div>
+    <p>טוען פרטי מוצר...</p>
+  </div>
+</div>
+
+<!-- TOAST הודעה קופצת -->
+<div class="toast" *ngIf="toastVisible()">
+  {{ toastMessage() }}
 </div>
