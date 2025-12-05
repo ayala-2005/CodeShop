@@ -17,7 +17,7 @@ export class MyPurchase implements OnInit {
   error = signal(false);
   customerId: number | null = null;
 
-  // ✅ הוספה למודאל
+  //  הוספה למודאל
   showModal = signal(false);
   selectedPurchaseDetails = signal<any>(null);
   loadingDetails = signal(false);
@@ -74,7 +74,7 @@ export class MyPurchase implements OnInit {
     });
   }
 
-  // ✅ פתיחת המודאל עם פרטי הזמנה
+  //  פתיחת המודאל עם פרטי הזמנה
   openPurchaseDetails(purchaseId: number) {
   this.showModal.set(true);
   this.loadingDetails.set(true);
@@ -82,7 +82,7 @@ export class MyPurchase implements OnInit {
 
   this.PurchaseDetailsService.GetProductsByPurchaseId(purchaseId).subscribe({
     next: (details) => {
-      console.log('Purchase details received:', details); // ✅ הוספנו לוג
+      console.log('Purchase details received:', details); //  לוג
       this.selectedPurchaseDetails.set(details);
       this.loadingDetails.set(false);
     },
@@ -95,7 +95,7 @@ export class MyPurchase implements OnInit {
   });
 }
 
-  // ✅ סגירת המודאל
+  //  סגירת המודאל
   closeModal() {
     this.showModal.set(false);
     this.selectedPurchaseDetails.set(null);
