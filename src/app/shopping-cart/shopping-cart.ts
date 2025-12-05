@@ -18,6 +18,7 @@ export class ShoppingCart implements OnInit {
   loading = signal<boolean>(true);
   customerId: number | undefined;
   totalPrice = signal<number>(0);
+  imagesUrl = 'https://localhost:7272/images/';
 
 
   constructor(private purchaseDetailsService: PurchaseDetailsService,private ShoppingCartServise: ShoppingCartServise,private router: Router) { }

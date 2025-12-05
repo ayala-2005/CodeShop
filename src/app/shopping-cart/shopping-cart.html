@@ -23,7 +23,7 @@
             <!-- Product Icon/Image -->
             <div class="cart-product-visual">
               <div *ngIf="item.product?.image; else defaultIcon" class="product-image-wrapper">
-                <img [src]="'assets/' + item.product?.image" [alt]="item.product?.productName" class="product-image">
+                <img [src]="  imagesUrl + item.product?.image" [alt]="item.product?.productName" class="product-image">
               </div>
               <ng-template #defaultIcon>
                 <div class="product-icon">

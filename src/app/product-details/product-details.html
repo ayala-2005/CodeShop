@@ -8,7 +8,7 @@
         <img 
           *ngIf="product.image" 
           class="product-image" 
-          [src]="'assets/' + product.image" 
+          [src]="imagesUrl + product.image" 
           [alt]="'תמונה של ' + product.productName" 
         />
         <div *ngIf="!product.image" class="product-icon-large">
@@ -16,7 +16,9 @@
         </div>
       </div>
     </div>
-
+ <button class="back-button" (click)="goBack()">
+    <span class="arrow">→</span>
+  </button>
     <!-- פרטי מוצר -->
     <div class="product-info-section">
       <h2 class="product-title">{{ product.productName }}</h2>

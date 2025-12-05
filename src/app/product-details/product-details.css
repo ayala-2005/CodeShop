@@ -10,7 +10,73 @@
   flex-direction: column;
   overflow: hidden;
 }
+/* ========================================
+   כפתור חזרה
+======================================== */
+.back-button {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 247, 255, 0.3);
+  color: white;
+  padding: 0.7rem 1.2rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
 
+.back-button:hover {
+  background: rgba(0, 247, 255, 0.2);
+  border-color: #00f7ff;
+  transform: translateX(5px);
+  box-shadow: 0 0 20px rgba(0, 247, 255, 0.4);
+}
+
+.back-button .arrow {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.back-button:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .back-button {
+    top: 1rem;
+    right: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .back-button .arrow {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-button {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .back-button span:last-child {
+    display: none; /* מסתיר את הטקסט במסכים קטנים */
+  }
+
+  .back-button .arrow {
+    font-size: 1.2rem;
+  }
+}
 .page-title {
   text-align: center;
   font-size: 1.8rem;

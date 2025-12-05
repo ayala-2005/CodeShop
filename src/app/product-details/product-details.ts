@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PurchaseDetailsService} from '../purchase-details-service'
 import { PurchaseDetail} from '../models/purchase-detail'
 import { Product} from '../models/product'
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-details',
   imports: [CommonModule],
@@ -12,10 +12,12 @@ import { Product} from '../models/product'
 })
 export class ProductDetails {
 product: any;
+imagesUrl= 'https://localhost:7272/images/';
+
 customerId = JSON.parse(localStorage.getItem('currentUser') || '{}').customerId;
   toastVisible = signal(false);
   toastMessage = signal("");
-constructor(private PurchaseDetailsService:PurchaseDetailsService){
+constructor(private PurchaseDetailsService:PurchaseDetailsService,private router: Router){
       effect(() => {
       if (this.toastVisible()) {
         setTimeout(() => {
@@ -66,5 +68,8 @@ addProduct(product: Product) {
         this.showToast("המוצר כבר קיים בעגלה");
       }
     }
+  }
+   goBack() {
+    this.router.navigate(['/menu']);  // או הניתוב שלך לדף המוצרים
   }
 }
